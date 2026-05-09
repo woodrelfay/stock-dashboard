@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>美股实时仪表盘</title>
+<title>美股实时仪表盘 | 华尔街交易员视角</title>
 <style>
 :root{
   --bg:#080c12;--card:#0f1419;--hover:#151b23;--border:#1e2936;
@@ -16,152 +16,181 @@ html{scroll-behavior:smooth}
 body{
   background:var(--bg);color:var(--text);
   font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
-  font-size:13px;line-height:1.5;min-height:100vh;padding-bottom:40px;
+  font-size:15px;line-height:1.55;min-height:100vh;padding-bottom:40px;
   -webkit-font-smoothing:antialiased;
 }
 
 /* ===== HEADER ===== */
 header{
   background:linear-gradient(180deg,#111820 0%,#0c1117 100%);
-  border-bottom:1px solid var(--border);padding:18px 20px 14px;
+  border-bottom:1px solid var(--border);padding:18px 22px 14px;
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
 }
 header .brand{display:flex;align-items:center;gap:10px}
-header h1{font-size:17px;font-weight:700;color:var(--bright);letter-spacing:0.5px}
+header h1{font-size:19px;font-weight:700;color:var(--bright);letter-spacing:0.5px}
 header .status{
   display:flex;align-items:center;gap:6px;
-  padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600;
+  padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600;
   border:1px solid var(--border);
 }
 .status.open{color:var(--green);border-color:rgba(63,185,80,0.3);background:rgba(63,185,80,0.06)}
 .status.closed{color:var(--red);border-color:rgba(248,81,73,0.3);background:rgba(248,81,73,0.06)}
 .status.ext{color:var(--amber);border-color:rgba(210,153,29,0.3);background:rgba(210,153,29,0.06)}
-header .clock{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+header .clock{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
 header .actions{display:flex;gap:8px}
 header .actions button{
   background:var(--card);border:1px solid var(--border);color:var(--muted);
-  padding:5px 10px;border-radius:5px;cursor:pointer;font-size:10px;
+  padding:6px 12px;border-radius:5px;cursor:pointer;font-size:11px;
   transition:all 0.15s;
 }
 header .actions button:hover{color:var(--text);border-color:#3a4a5c}
 
-/* ===== SETTINGS BAR ===== */
+/* ===== SETTINGS ===== */
 .settings-bar{
-  display:none;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--border);
+  display:none;padding:14px 22px;background:var(--card);border-bottom:1px solid var(--border);
   align-items:center;gap:10px;flex-wrap:wrap;
 }
 .settings-bar.show{display:flex}
 .settings-bar input{
-  flex:1;min-width:200px;max-width:340px;
-  padding:6px 10px;background:#080c12;border:1px solid var(--border);
-  color:var(--text);border-radius:4px;font-size:11px;
+  flex:1;min-width:220px;max-width:360px;
+  padding:7px 12px;background:#080c12;border:1px solid var(--border);
+  color:var(--text);border-radius:4px;font-size:12px;
 }
-.settings-bar .note{font-size:9px;color:var(--muted)}
+.settings-bar .note{font-size:10px;color:var(--muted)}
 .settings-bar .note a{color:var(--blue)}
 
-/* ===== WS STATUS BAR ===== */
+/* ===== WS BAR ===== */
 .ws-bar{
   display:flex;align-items:center;justify-content:space-between;
-  padding:6px 20px;font-size:10px;color:var(--muted);
+  padding:7px 22px;font-size:11px;color:var(--muted);
   background:rgba(255,255,255,0.008);border-bottom:1px solid rgba(255,255,255,0.03);
-  flex-wrap:wrap;gap:6px;
+  flex-wrap:wrap;gap:8px;
 }
-.ws-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px}
-.ws-dot.on{background:var(--green);box-shadow:0 0 4px rgba(63,185,80,0.5)}
+.ws-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}
+.ws-dot.on{background:var(--green);box-shadow:0 0 5px rgba(63,185,80,0.5)}
 .ws-dot.off{background:var(--red)}
 .ws-dot.connecting{background:var(--amber);animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:0.2}}
 
-/* ===== MAIN GRID ===== */
-main{padding:16px 20px;display:grid;grid-template-columns:1fr 320px;gap:16px}
+/* ===== MAIN ===== */
+main{padding:18px 22px;display:grid;grid-template-columns:1fr 340px;gap:18px}
 @media(max-width:768px){main{grid-template-columns:1fr}}
 
 /* ===== CARDS ===== */
 .card{
   background:var(--card);border:1px solid var(--border);
-  border-radius:8px;overflow:hidden;margin-bottom:14px;
+  border-radius:8px;overflow:hidden;margin-bottom:16px;
 }
 .card-header{
-  padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);
-  font-size:12px;font-weight:600;color:var(--bright);
+  padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:14px;font-weight:600;color:var(--bright);
   display:flex;align-items:center;gap:8px;
 }
-.card-header .dot{width:8px;height:8px;border-radius:2px}
-.card-header .dot.semi{background:var(--red)}
-.card-header .dot.aero{background:var(--blue)}
-.card-header .dot.uran{background:var(--green)}
-.card-header .dot.news{background:var(--orange)}
-.card-header .dot.overview{background:var(--purple)}
-.card-body{padding:8px 14px}
+.card-header .dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.dot.semi{background:var(--red)}.dot.aero{background:var(--blue)}
+.dot.uran{background:var(--green)}.dot.news{background:var(--orange)}
+.dot.overview{background:var(--purple)}.dot.trader{background:var(--orange)}
+.card-body{padding:10px 16px}
 
-/* ===== OVERVIEW GRID ===== */
-.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+/* ===== TRADER NOTE ===== */
+.trader-note{
+  background:linear-gradient(135deg,rgba(240,136,62,0.06),rgba(240,136,62,0.02));
+  border-left:3px solid var(--orange);padding:14px 16px;
+  font-size:13px;line-height:1.7;color:var(--text);
+}
+.trader-note .tn-title{
+  font-size:13px;font-weight:700;color:var(--orange);
+  margin-bottom:8px;display:flex;align-items:center;gap:6px;
+}
+.trader-note .tn-section{margin-top:12px}
+.trader-note .tn-section strong{color:var(--bright)}
+.trader-note .tn-bullet{
+  padding:3px 0 3px 12px;position:relative;
+}
+.trader-note .tn-bullet::before{content:'›';position:absolute;left:0;color:var(--orange)}
+.trader-note .tn-dim{color:var(--amber);font-size:12px;margin-top:10px;font-style:italic}
+
+/* ===== OVERVIEW ===== */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .ov-item{
   background:linear-gradient(135deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005));
   border:1px solid rgba(255,255,255,0.04);border-radius:6px;
-  padding:12px 14px;text-align:center;transition:border-color 0.2s;
+  padding:14px 16px;text-align:center;transition:border-color 0.2s;
 }
 .ov-item:hover{border-color:rgba(255,255,255,0.1)}
-.ov-item .ov-name{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:0.3px}
-.ov-item .ov-price{font-size:17px;font-weight:700;color:var(--bright);font-variant-numeric:tabular-nums}
-.ov-item .ov-change{font-size:11px;margin-top:2px;font-weight:500}
+.ov-item .ov-name{font-size:11px;color:var(--muted);margin-bottom:4px;letter-spacing:0.3px}
+.ov-item .ov-price{font-size:20px;font-weight:700;color:var(--bright);font-variant-numeric:tabular-nums}
+.ov-item .ov-change{font-size:12px;margin-top:3px;font-weight:500}
 
 /* ===== TABLE ===== */
-table.w{width:100%;border-collapse:collapse;font-size:11px}
+table.w{width:100%;border-collapse:collapse;font-size:13px}
 table.w thead th{
-  text-align:left;padding:6px 8px;font-weight:500;font-size:9px;
+  text-align:left;padding:7px 10px;font-weight:500;font-size:10px;
   color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;
   border-bottom:1px solid var(--border);
 }
 table.w thead th.rt{text-align:right}
 table.w tbody td{
-  padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.02);
+  padding:7px 10px;border-bottom:1px solid rgba(255,255,255,0.02);
   font-variant-numeric:tabular-nums;
 }
 table.w tbody tr{transition:background 0.15s}
 table.w tbody tr:hover{background:var(--hover)}
 table.w .rt{text-align:right}
-table.w .ticker{font-weight:600;color:var(--blue);font-size:11px}
+table.w .ticker{font-weight:600;color:var(--blue);font-size:12px}
 table.w .name{color:var(--text)}
 table.w .price{font-weight:600;transition:color 0.4s}
 
 /* ===== NEWS ===== */
-.news-scroll{max-height:520px;overflow-y:auto}
+.news-tabs{display:flex;gap:2px;margin-bottom:10px}
+.news-tab{
+  padding:5px 14px;border-radius:4px 4px 0 0;font-size:11px;cursor:pointer;
+  background:transparent;border:1px solid transparent;color:var(--muted);
+  transition:all 0.15s;
+}
+.news-tab:hover{color:var(--text)}
+.news-tab.active{background:var(--hover);color:var(--bright);border-color:var(--border)}
+.news-scroll{max-height:560px;overflow-y:auto}
 .news-item{
   display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.02);
   cursor:pointer;text-decoration:none;color:inherit;transition:background 0.15s;
 }
-.news-item:hover{background:var(--hover);margin:0 -14px;padding:10px 14px}
-.news-item .ni-meta{font-size:9px;color:var(--muted);margin-bottom:2px}
-.news-item .ni-title{font-size:12px;color:var(--text);line-height:1.4;font-weight:500}
-.news-item .ni-summary{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
+.news-item:hover{background:var(--hover);margin:0 -16px;padding:10px 16px}
+.news-item .ni-meta{font-size:10px;color:var(--muted);margin-bottom:2px}
+.news-item .ni-title{font-size:13px;color:var(--text);line-height:1.45;font-weight:500}
+.news-item .ni-summary{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.35}
+.news-source-badge{
+  display:inline-block;padding:1px 5px;border-radius:3px;
+  font-size:9px;font-weight:600;margin-right:4px;
+}
+.news-source-badge.finnhub{background:rgba(88,166,255,0.15);color:var(--blue)}
+.news-source-badge.cnbc{background:rgba(63,185,80,0.15);color:var(--green)}
+.news-source-badge.mw{background:rgba(210,153,29,0.15);color:var(--amber)}
+.news-source-badge.yahoo{background:rgba(163,113,247,0.15);color:var(--purple)}
 
 /* ===== CHART LINKS ===== */
-.chip-row{display:flex;flex-wrap:wrap;gap:5px}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
 .chip{
-  display:inline-block;padding:5px 11px;border-radius:14px;font-size:10px;font-weight:500;
+  display:inline-block;padding:6px 12px;border-radius:14px;font-size:11px;font-weight:500;
   text-decoration:none;transition:all 0.15s;
   border:1px solid var(--border);color:var(--text);background:var(--card);
 }
 .chip:hover{border-color:#3a4a5c;background:var(--hover);color:var(--bright)}
 .chip.hl{background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.2);color:var(--blue)}
 
-/* ===== EMPTY STATE ===== */
-.empty{text-align:center;padding:32px 16px;color:var(--muted)}
-.empty .icon{font-size:32px;margin-bottom:8px;opacity:0.4}
-.empty p{font-size:11px}
-.empty code{
-  background:var(--hover);padding:2px 6px;border-radius:3px;
-  font-size:10px;color:var(--amber);
-}
+/* ===== EMPTY ===== */
+.empty{text-align:center;padding:36px 16px;color:var(--muted)}
+.empty .icon{font-size:36px;margin-bottom:10px;opacity:0.4}
+.empty p{font-size:12px}
+.empty code{background:var(--hover);padding:2px 8px;border-radius:3px;font-size:11px;color:var(--amber)}
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar{width:3px}
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#21262d;border-radius:3px}
 
-/* ===== TICKER TAPE WRAPPER ===== */
-.tt-wrap{background:#0a0f16;border-bottom:1px solid var(--border);height:44px;overflow:hidden}
+/* Ticker */
+.tt-wrap{background:#0a0f16;border-bottom:1px solid var(--border);height:46px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -174,8 +203,8 @@ table.w .price{font-weight:600;transition:color 0.4s}
   </div>
   <div class="clock" id="clock"></div>
   <div class="actions">
-    <button onclick="toggleSettings()" title="API设置">⚙ 设置</button>
-    <button onclick="initData()" title="手动刷新">↻ 刷新</button>
+    <button onclick="toggleSettings()">⚙ 设置</button>
+    <button onclick="initData()">↻ 刷新</button>
   </div>
 </header>
 
@@ -185,10 +214,10 @@ table.w .price{font-weight:600;transition:color 0.4s}
   <span class="note">Key仅保存在你的浏览器中 · <a href="https://finnhub.io/register" target="_blank">获取免费Key</a></span>
 </div>
 
-<!-- TICKER TAPE -->
+<!-- TICKER -->
 <div class="tt-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
 
-<!-- WS STATUS -->
+<!-- WS BAR -->
 <div class="ws-bar">
   <span><span class="ws-dot off" id="wsDot"></span><span id="wsLabel">WebSocket: 未连接</span></span>
   <span id="dataInfo"></span>
@@ -197,8 +226,39 @@ table.w .price{font-weight:600;transition:color 0.4s}
 
 <!-- MAIN -->
 <main>
-  <!-- LEFT COLUMN -->
+  <!-- LEFT -->
   <div>
+
+    <!-- ★ 交易员笔记 — 前日复盘 -->
+    <div class="card">
+      <div class="card-header"><span class="dot trader"></span>交易员笔记 · 5月8日复盘</div>
+      <div class="card-body" style="padding:0">
+        <div class="trader-note">
+          <div class="tn-title">📋 非农+115K远超预期 → "好数据=好消息"回归 → 纳指标普双创新高</div>
+
+          <div class="tn-section"><strong>一、大盘：非农是最佳情景，但连续6周上涨后追高盈亏比变差</strong></div>
+          <div class="tn-bullet">4月非农+115K（预期仅+62K），几乎翻倍；时薪+0.2%低于预期+0.3%——"金发姑娘"数据：够强打消衰退恐惧，又不够热引发加息</div>
+          <div class="tn-bullet">标普500 +0.84%、纳指+1.71% 双创历史新高。连续第6周上涨，为2024年10月以来最长连涨周期</div>
+          <div class="tn-bullet">降息预期蒸发（6月按兵不动概率95%+），但市场不跌反涨——"增长叙事"取代了"宽松叙事"</div>
+          <div class="tn-bullet">U-6就业不足率从8.0%升至8.2%，兼职因经济原因暴增445K——"隐性松弛"值得警惕</div>
+
+          <div class="tn-section"><strong>二、半导体：存储芯片爆炸，"AI扩圈"从GPU到全供应链</strong></div>
+          <div class="tn-bullet">MU +15.49%历史新高$746.81（存储短缺+AI服务器双驱动）、INTC +13.93%至$124.86（Apple代工谈判+CPU在AI中角色重估）、AMD +11.44%延续前日涨势</div>
+          <div class="tn-bullet">NVDA +1.75%稳坐$215.20，盘中创52周新高$217.80——"AI核心"避险+领涨双重角色</div>
+          <div class="tn-bullet">SOX +5.51%至11,775.50历史新高。之前SOX靠NVDA/AMD两只撑着，现在存储+CPU+设备全面参与——"AI牛市2.0"特征</div>
+
+          <div class="tn-section"><strong>三、航天国防：RKLB暴涨34%，传统国防继续失血</strong></div>
+          <div class="tn-bullet">RKLB +34.32%至$105.55，成交量为均量247%。Q1营收$200M超预期+积压$2.2B+指引超预期——"航天AI"预期差爆发</div>
+          <div class="tn-bullet">传统国防（LMT -1.15%, NOC -0.50%, RTX -0.08%）继续被"停火+预算转移"叙事压制，资金从国防流出→流入AI和航天</div>
+
+          <div class="tn-section"><strong>四、铀矿核能：全线回调，但"三独立"逻辑未变</strong></div>
+          <div class="tn-bullet">UUUU -8.44%领跌（Q1 EPS miss），CCJ -1.65%, UEC -2.76%——获利了结+UUUU财报拖累</div>
+          <div class="tn-bullet">"三独立"属性反而在芯片暴涨日得到验证：独立于伊朗/非农/芯片——回调是分散化入场窗口</div>
+
+          <div class="tn-dim">周末风险：伊朗答复MOU（谈崩→油价跳涨+国防脉冲 / 签协议→油价跌破$90+航运受益）。下周CPI(5/13)+AMAT财报(5/14)。策略：半仓+保留弹药，等周一回调2-3%再布局存储芯片和铀矿。</div>
+        </div>
+      </div>
+    </div>
 
     <!-- Market Overview -->
     <div class="card">
@@ -219,7 +279,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
       </div>
     </div>
 
-    <!-- Aerospace -->
+    <!-- Aerospace & Defense -->
     <div class="card">
       <div class="card-header"><span class="dot aero"></span>航天 · 国防</div>
       <div class="card-body" style="padding:0">
@@ -242,19 +302,25 @@ table.w .price{font-weight:600;transition:color 0.4s}
     </div>
   </div>
 
-  <!-- RIGHT COLUMN -->
+  <!-- RIGHT -->
   <div>
     <!-- News -->
     <div class="card">
       <div class="card-header"><span class="dot news"></span>实时新闻</div>
-      <div class="card-body" style="padding:0 14px">
+      <div class="card-body" style="padding:0 16px">
+        <div class="news-tabs">
+          <span class="news-tab active" data-src="finnhub">Finnhub</span>
+          <span class="news-tab" data-src="cnbc">CNBC</span>
+          <span class="news-tab" data-src="mw">MarketWatch</span>
+          <span class="news-tab" data-src="yahoo">Yahoo Finance</span>
+        </div>
         <div class="news-scroll" id="newsList">
           <div class="empty"><div class="icon">📰</div><p>设置API Key后自动加载</p></div>
         </div>
       </div>
     </div>
 
-    <!-- Quick Charts -->
+    <!-- Chart Links -->
     <div class="card">
       <div class="card-header"><span class="dot overview"></span>快速图表</div>
       <div class="card-body">
@@ -263,12 +329,14 @@ table.w .price{font-weight:600;transition:color 0.4s}
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:SOX" target="_blank">SOX 半导体指数</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:AMD" target="_blank">AMD</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:MU" target="_blank">MU 美光</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:INTC" target="_blank">INTC 英特尔</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:RKLB" target="_blank">RKLB 火箭实验室</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=AMEX:UUUU" target="_blank">UUUU 能源燃料</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:SPX" target="_blank">标普500</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:USOIL" target="_blank">WTI 原油</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:GOLD" target="_blank">黄金</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:CCJ" target="_blank">CCJ 卡梅科</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:HWM" target="_blank">HWM 豪迈航空</a>
         </div>
       </div>
     </div>
@@ -285,19 +353,19 @@ const OVERVIEW = [
   {s:'USO',n:'WTI 原油'},{s:'GLD',n:'黄金 ETF'}
 ];
 const SEMI = ['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SMH'];
-const AERO = ['RTX','LMT','NOC','BA','RKLB'];
+const AERO = ['RTX','LMT','NOC','BA','RKLB','HWM','ATI','CRS','TROX','CC'];
 const URAN = ['UUUU','CCJ','UEC','DNN','NXE','URNM'];
 
 const NAMES = {
   NVDA:'英伟达',AMD:'超威半导体',INTC:'英特尔',QCOM:'高通',MU:'美光科技',
   AMAT:'应用材料',ASML:'阿斯麦',TSM:'台积电',ARM:'ARM',SMH:'半导体ETF',
   RTX:'雷神技术',LMT:'洛克希德马丁',NOC:'诺斯罗普格鲁曼',BA:'波音',RKLB:'火箭实验室',
+  HWM:'豪迈航空',ATI:'ATI特种金属',CRS:'Carpenter科技',TROX:'Tronox',CC:'Chemours',
   UUUU:'能源燃料',CCJ:'卡梅科',UEC:'铀能公司',DNN:'Denison矿业',NXE:'NexGen能源',URNM:'铀矿ETF',
   SPY:'标普500',QQQ:'纳指100',IWM:'罗素2000',DIA:'道指',
   VXX:'VIX短期',TLT:'20年以上美债',USO:'美国原油',GLD:'黄金'
 };
 
-// Price store
 const P = {}; // {symbol: {price, prevClose, ts}}
 
 // ========== MARKET STATUS ==========
@@ -316,9 +384,7 @@ function market() {
 function updateClock() {
   const ms = market();
   const el = document.getElementById('marketStatus');
-  el.textContent = ms.l;
-  el.className = 'status '+ms.c;
-
+  el.textContent = ms.l; el.className = 'status '+ms.c;
   const now = new Date();
   document.getElementById('clock').textContent =
     now.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});
@@ -334,7 +400,6 @@ function toggleSettings() {
   bar.classList.toggle('show');
   if (bar.classList.contains('show')) document.getElementById('keyInput').focus();
 }
-
 const ki = document.getElementById('keyInput');
 ki.value = key();
 ki.addEventListener('input', function(){
@@ -342,7 +407,7 @@ ki.addEventListener('input', function(){
   if (this.value.trim()) initData();
 });
 
-// ========== REST QUOTE (PARALLEL) ==========
+// ========== REST QUOTE ==========
 async function fetchQuote(sym) {
   const k = key(); if (!k) return null;
   try {
@@ -356,7 +421,6 @@ async function fetchQuote(sym) {
 
 // ========== BUILD TABLES ==========
 function buildAll() {
-  // Overview
   document.getElementById('overviewGrid').innerHTML = OVERVIEW.map(o=>`
     <div class="ov-item" data-sym="${o.s}">
       <div class="ov-name">${o.n}</div>
@@ -364,7 +428,6 @@ function buildAll() {
       <div class="ov-change"></div>
     </div>`).join('');
 
-  // Watchlists
   [['semiTable',SEMI],['aeroTable',AERO],['uranTable',URAN]].forEach(([id,syms])=>{
     document.getElementById(id).querySelector('tbody').innerHTML = syms.map(s=>`
       <tr data-sym="${s}">
@@ -380,63 +443,52 @@ function buildAll() {
 // ========== UPDATE DOM ==========
 function updateOne(sym, data) {
   if (!data || !data.price) return;
-  const prevClose = data.prevClose || 0;
-  const change = prevClose>0 ? data.price-prevClose : 0;
-  const changePct = prevClose>0 ? (change/prevClose*100) : 0;
+  const pc = data.prevClose || 0;
+  const change = pc>0 ? data.price-pc : 0;
+  const changePct = pc>0 ? (change/pc*100) : 0;
 
-  // Overview card
   const card = document.querySelector(`.ov-item[data-sym="${sym}"]`);
   if (card) {
     card.querySelector('.ov-price').textContent = '$'+data.price.toFixed(2);
-    if (prevClose>0) {
-      const sign = change>=0?'+':'';
-      const clr = change>=0?'var(--green)':'var(--red)';
-      card.querySelector('.ov-change').innerHTML = `<span style="color:${clr}">${sign}${change.toFixed(2)} (${sign}${changePct.toFixed(2)}%)</span>`;
+    if (pc>0) {
+      const s = change>=0?'+':'';
+      card.querySelector('.ov-change').innerHTML =
+        `<span style="color:var(--${change>=0?'green':'red'})">${s}${change.toFixed(2)} (${s}${changePct.toFixed(2)}%)</span>`;
     }
   }
 
-  // Table row
   const row = document.querySelector(`tr[data-sym="${sym}"]`);
   if (row) {
-    const priceEl = row.querySelector('.price');
-    const chgEl = row.querySelector('.chg');
-    const pctEl = row.querySelector('.pct');
-    if (priceEl) {
-      const oldP = parseFloat(priceEl.dataset.last||'0');
-      priceEl.textContent = '$'+data.price.toFixed(2);
-      if (oldP>0 && Math.abs(data.price-oldP)>0.005) {
-        priceEl.style.color = data.price>oldP ? 'var(--green)' : 'var(--red)';
-        setTimeout(()=>priceEl.style.color='', 500);
+    const pEl=row.querySelector('.price'), cEl=row.querySelector('.chg'), pcEl=row.querySelector('.pct');
+    if (pEl) {
+      const old=parseFloat(pEl.dataset.last||'0');
+      pEl.textContent = '$'+data.price.toFixed(2);
+      if (old>0 && Math.abs(data.price-old)>0.005) {
+        pEl.style.color = data.price>old ? 'var(--green)' : 'var(--red)';
+        setTimeout(()=>pEl.style.color='', 500);
       }
-      priceEl.dataset.last = data.price;
+      pEl.dataset.last = data.price;
     }
-    if (chgEl && prevClose>0) {
-      const sign = change>=0?'+':'';
-      chgEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${sign}${change.toFixed(2)}</span>`;
-      pctEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${sign}${changePct.toFixed(2)}%</span>`;
+    if (cEl && pc>0) {
+      const s = change>=0?'+':'';
+      cEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${s}${change.toFixed(2)}</span>`;
+      pcEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${s}${changePct.toFixed(2)}%</span>`;
     }
   }
 }
 
-// ========== INIT: PARALLEL REST → INSTANT DATA ==========
+// ========== INIT: PARALLEL REST ==========
 let initialLoadDone = false;
 async function initData() {
   updateClock();
   const k = key();
-  if (!k) {
-    buildAll();
-    document.getElementById('dataInfo').textContent = '请设置API Key';
-    return;
-  }
-
+  if (!k) { buildAll(); document.getElementById('dataInfo').textContent = '请设置API Key'; return; }
   if (!initialLoadDone) buildAll();
 
   const allSyms = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
   document.getElementById('dataInfo').textContent = '加载 '+allSyms.length+' 只标的...';
 
-  // FIRE ALL PARALLEL — no artificial delays!
   const results = await Promise.allSettled(allSyms.map(s=>fetchQuote(s)));
-
   let loaded = 0;
   results.forEach((r,i)=>{
     if (r.status==='fulfilled' && r.value && r.value.price>0) {
@@ -447,19 +499,15 @@ async function initData() {
     }
   });
 
-  document.getElementById('dataInfo').textContent = `已加载 ${loaded}/${allSyms.length} 只 · ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+  document.getElementById('dataInfo').textContent =
+    `已加载 ${loaded}/${allSyms.length} 只 · ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
   initialLoadDone = true;
-
-  // Connect WebSocket for live updates
   connectWS();
-
-  // Load news
-  fetchNews();
+  fetchNews('finnhub');
 }
 
-// ========== WEBSOCKET (LIVE UPDATES) ==========
+// ========== WEBSOCKET ==========
 let ws=null, wsTimer=null;
-
 function connectWS() {
   const k = key(); if (!k) return;
   if (ws) { try{ws.close()}catch(e){} }
@@ -469,43 +517,50 @@ function connectWS() {
   document.getElementById('wsLabel').textContent = 'WebSocket: 连接中...';
 
   ws = new WebSocket(`wss://ws.finnhub.io?token=${k}`);
-
   ws.onopen = ()=>{
     document.getElementById('wsDot').className = 'ws-dot on';
     document.getElementById('wsLabel').textContent = 'WebSocket: 实时在线';
-
     const all = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
     all.forEach(s=>ws.send(JSON.stringify({type:'subscribe',symbol:s})));
   };
-
   ws.onmessage = (e)=>{
     const msg = JSON.parse(e.data);
     if (msg.type==='trade' && msg.data) {
       for (const t of msg.data) {
         if (!P[t.s]) P[t.s] = {};
-        P[t.s].price = t.p;
-        P[t.s].ts = t.t;
+        P[t.s].price = t.p; P[t.s].ts = t.t;
         updateOne(t.s, {price:t.p, prevClose:P[t.s].prevClose});
       }
     }
   };
-
   ws.onclose = ()=>{
     document.getElementById('wsDot').className = 'ws-dot off';
     document.getElementById('wsLabel').textContent = 'WebSocket: 断开,5秒重连';
     wsTimer = setTimeout(connectWS, 5000);
   };
-
   ws.onerror = ()=>{
     document.getElementById('wsDot').className = 'ws-dot off';
     document.getElementById('wsLabel').textContent = 'WebSocket: 连接失败';
   };
 }
 
-// ========== NEWS ==========
-async function fetchNews() {
-  const k = key(); if (!k) return;
+// ========== NEWS (MULTI-SOURCE) ==========
+let currentNewsSrc = 'finnhub';
+
+async function fetchNews(src) {
+  currentNewsSrc = src;
   const el = document.getElementById('newsList');
+  el.innerHTML = '<div class="empty"><p>加载中...</p></div>';
+
+  if (src === 'finnhub') {
+    await fetchFinnhubNews(el);
+  } else {
+    await fetchRssNews(el, src);
+  }
+}
+
+async function fetchFinnhubNews(el) {
+  const k = key(); if (!k) { el.innerHTML='<div class="empty"><p>请设置API Key</p></div>'; return; }
   try {
     const r = await fetch(`https://finnhub.io/api/v1/news?category=general&token=${k}`);
     if (!r.ok) throw new Error('fail');
@@ -515,41 +570,69 @@ async function fetchNews() {
       const d = new Date(n.datetime*1000);
       const ts = d.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
       return `<a class="news-item" href="${n.url}" target="_blank">
-        <div class="ni-meta">${ts} · ${n.source||''} · ${n.category||''}</div>
+        <div class="ni-meta"><span class="news-source-badge finnhub">Finnhub</span>${ts} · ${n.source||''}</div>
         <div class="ni-title">${n.headline}</div>
-        <div class="ni-summary">${(n.summary||'').slice(0,110)}</div>
+        <div class="ni-summary">${(n.summary||'').slice(0,120)}</div>
       </a>`;
     }).join('');
-  } catch(e) { el.innerHTML='<div class="empty"><p>新闻加载失败,稍后重试</p></div>'; }
+  } catch(e) { el.innerHTML='<div class="empty"><p>Finnhub新闻加载失败</p></div>'; }
 }
+
+async function fetchRssNews(el, src) {
+  const feeds = {
+    cnbc: 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114',
+    mw: 'https://feeds.marketwatch.com/marketwatch/topstories',
+    yahoo: 'https://finance.yahoo.com/news/rssindex'
+  };
+  const labels = {cnbc:'CNBC',mw:'MarketWatch',yahoo:'Yahoo Finance'};
+  const badgeClass = {cnbc:'cnbc',mw:'mw',yahoo:'yahoo'};
+
+  try {
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feeds[src])}`;
+    const r = await fetch(apiUrl);
+    if (!r.ok) throw new Error('fail');
+    const data = await r.json();
+    if (!data?.items?.length) { el.innerHTML='<div class="empty"><p>暂无新闻</p></div>'; return; }
+    el.innerHTML = data.items.slice(0,30).map(n=>{
+      const d = new Date(n.pubDate);
+      const ts = d.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+      return `<a class="news-item" href="${n.link}" target="_blank">
+        <div class="ni-meta"><span class="news-source-badge ${badgeClass[src]}">${labels[src]}</span>${ts}</div>
+        <div class="ni-title">${n.title}</div>
+        <div class="ni-summary">${(n.description||'').replace(/<[^>]*>/g,'').slice(0,120)}</div>
+      </a>`;
+    }).join('');
+  } catch(e) { el.innerHTML=`<div class="empty"><p>${labels[src]}新闻加载失败，请稍后重试</p></div>`; }
+}
+
+// News tab switching
+document.querySelector('.news-tabs').addEventListener('click', function(e){
+  if (e.target.classList.contains('news-tab')) {
+    this.querySelectorAll('.news-tab').forEach(t=>t.classList.remove('active'));
+    e.target.classList.add('active');
+    fetchNews(e.target.dataset.src);
+  }
+});
 
 // ========== STARTUP ==========
 function boot() {
   updateClock();
   setInterval(updateClock, 1000);
-
   const k = key();
   if (k) {
-    initData(); // Fires REST immediately, then WS
-
-    // Periodic news refresh
-    const newsInterval = market().s==='open' ? 120000 : 300000;
-    setInterval(fetchNews, newsInterval);
+    initData();
+    const ni = market().s==='open' ? 120000 : 300000;
+    setInterval(()=>fetchNews(currentNewsSrc), ni);
   } else {
     buildAll();
     document.getElementById('dataInfo').textContent = '请点击 ⚙ 设置 输入API Key';
   }
-
-  // Refresh on tab focus
   document.addEventListener('visibilitychange', ()=>{
-    if (!document.hidden && initialLoadDone) {
-      updateClock();
-      initData();
-    }
+    if (!document.hidden && initialLoadDone) { updateClock(); initData(); }
   });
 }
 
-// ========== TRADINGVIEW TICKER ==========
+// ========== TICKER TAPE ==========
 (function(){
   const syms = [
     {proName:'TVC:DJI',title:'道指'},{proName:'TVC:SPX',title:'标普500'},
@@ -561,11 +644,12 @@ function boot() {
     {proName:'NYSE:TSM',title:'台积电'},{proName:'NASDAQ:ARM',title:'ARM'},
     {proName:'NYSE:RTX',title:'雷神'},{proName:'NYSE:LMT',title:'洛克希德'},
     {proName:'NYSE:NOC',title:'诺斯罗普'},{proName:'NYSE:BA',title:'波音'},
-    {proName:'NASDAQ:RKLB',title:'火箭实验室'},{proName:'AMEX:UUUU',title:'能源燃料'},
-    {proName:'NYSE:CCJ',title:'卡梅科'},{proName:'AMEX:UEC',title:'铀能'},
-    {proName:'AMEX:DNN',title:'Denison'},{proName:'NYSE:NXE',title:'NexGen'},
-    {proName:'TVC:USOIL',title:'原油'},{proName:'TVC:GOLD',title:'黄金'},
-    {proName:'TVC:US10Y',title:'10Y美债'}
+    {proName:'NASDAQ:RKLB',title:'火箭实验室'},{proName:'NYSE:HWM',title:'豪迈航空'},
+    {proName:'NYSE:ATI',title:'ATI'},{proName:'NYSE:CRS',title:'Carpenter'},
+    {proName:'AMEX:UUUU',title:'能源燃料'},{proName:'NYSE:CCJ',title:'卡梅科'},
+    {proName:'AMEX:UEC',title:'铀能'},{proName:'AMEX:DNN',title:'Denison'},
+    {proName:'NYSE:NXE',title:'NexGen'},{proName:'TVC:USOIL',title:'原油'},
+    {proName:'TVC:GOLD',title:'黄金'},{proName:'TVC:US10Y',title:'10Y美债'}
   ];
   const s = document.createElement('script');
   s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
@@ -577,7 +661,6 @@ function boot() {
   document.querySelector('.tt-wrap .tradingview-widget-container__widget').appendChild(s);
 })();
 
-// GO
 window.addEventListener('DOMContentLoaded', ()=>setTimeout(boot, 300));
 </script>
 </body>
