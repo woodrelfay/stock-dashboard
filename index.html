@@ -72,8 +72,52 @@ header .actions button:hover{color:var(--text);border-color:#3a4a5c}
 .ws-dot.connecting{background:var(--amber);animation:pulse 1.5s infinite}
 @keyframes pulse{50%{opacity:0.2}}
 
+/* ===== FUNCTION BAR ===== */
+.func-bar{
+  display:flex;gap:0;padding:0 22px;
+  background:var(--card);border-bottom:1px solid var(--border);
+}
+.func-tab{
+  padding:10px 20px;font-size:13px;font-weight:500;cursor:pointer;
+  color:var(--muted);border-bottom:2px solid transparent;
+  transition:all 0.2s;position:relative;top:1px;
+  user-select:none;
+}
+.func-tab:hover{color:var(--text);background:var(--hover)}
+.func-tab.active{color:var(--bright);border-bottom-color:var(--orange)}
+.func-tab .fdot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px}
+.func-tab .fdot.notes{background:var(--orange)}
+.func-tab .fdot.news{background:var(--blue)}
+.func-tab .fdot.pizza{background:var(--red)}
+
+/* ===== SCROLLABLE TABLE ===== */
+.scroll-tbl{max-height:320px;overflow-y:auto}
+.scroll-tbl table.w thead{position:sticky;top:0;z-index:1}
+.scroll-tbl table.w thead th{background:var(--card)}
+
+/* ===== PIZZA INDEX ===== */
+.pizza-status{
+  display:flex;align-items:center;gap:16px;padding:16px;
+  background:linear-gradient(135deg,rgba(248,81,73,0.06),rgba(248,81,73,0.01));
+  border:1px solid rgba(248,81,73,0.15);border-radius:8px;margin-bottom:14px;
+}
+.pizza-gauge{text-align:center;flex-shrink:0}
+.pizza-gauge .level{font-size:48px;line-height:1}
+.pizza-gauge .label{font-size:10px;color:var(--muted);margin-top:4px}
+.pizza-info{font-size:13px;line-height:1.7}
+.pizza-info strong{color:var(--bright)}
+.pizza-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.pizza-meta-item{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:6px;padding:12px 14px;
+}
+.pizza-meta-item .pm-title{font-size:10px;color:var(--muted);margin-bottom:4px;letter-spacing:0.5px}
+.pizza-meta-item .pm-val{font-size:15px;font-weight:700;color:var(--bright)}
+.pizza-meta-item .pm-sub{font-size:11px;color:var(--muted);margin-top:2px}
+
 /* ===== MAIN ===== */
 main{padding:18px 22px;display:grid;grid-template-columns:1fr 340px;gap:18px}
+main.single-col{grid-template-columns:1fr}
 @media(max-width:768px){main{grid-template-columns:1fr}}
 
 /* ===== CARDS ===== */
@@ -224,13 +268,20 @@ table.w .price{font-weight:600;transition:color 0.4s}
   <span id="refreshInfo"></span>
 </div>
 
+<!-- FUNCTION BAR -->
+<div class="func-bar" id="funcBar">
+  <div class="func-tab active" data-panel="notes"><span class="fdot notes"></span>交易员笔记</div>
+  <div class="func-tab" data-panel="news"><span class="fdot news"></span>实时新闻</div>
+  <div class="func-tab" data-panel="pizza"><span class="fdot pizza"></span>五角大楼披萨指数</div>
+</div>
+
 <!-- MAIN -->
 <main>
   <!-- LEFT -->
   <div>
 
     <!-- ★ 交易员笔记 — 前日复盘（从trader_notes.json加载） -->
-    <div class="card" id="traderNotesCard">
+    <div class="card panel-notes" id="traderNotesCard">
       <div class="card-header"><span class="dot trader"></span>交易员笔记 · 加载中...</div>
       <div class="card-body" style="padding:0">
         <div class="trader-note" id="traderNotesContent">
@@ -252,7 +303,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
     </div>
 
     <!-- Market Overview -->
-    <div class="card">
+    <div class="card panel-notes">
       <div class="card-header"><span class="dot overview"></span>大盘概览</div>
       <div class="card-body">
         <div class="ov-grid" id="overviewGrid"></div>
@@ -260,35 +311,41 @@ table.w .price{font-weight:600;transition:color 0.4s}
     </div>
 
     <!-- Semiconductors -->
-    <div class="card">
+    <div class="card panel-notes">
       <div class="card-header"><span class="dot semi"></span>半导体 · SOX</div>
       <div class="card-body" style="padding:0">
+        <div class="scroll-tbl">
         <table class="w" id="semiTable">
           <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
           <tbody></tbody>
         </table>
+        </div>
       </div>
     </div>
 
     <!-- Aerospace & Defense -->
-    <div class="card">
+    <div class="card panel-notes">
       <div class="card-header"><span class="dot aero"></span>航天 · 国防</div>
       <div class="card-body" style="padding:0">
+        <div class="scroll-tbl">
         <table class="w" id="aeroTable">
           <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
           <tbody></tbody>
         </table>
+        </div>
       </div>
     </div>
 
     <!-- Uranium -->
-    <div class="card">
+    <div class="card panel-notes">
       <div class="card-header"><span class="dot uran"></span>铀矿 · 核能</div>
       <div class="card-body" style="padding:0">
+        <div class="scroll-tbl">
         <table class="w" id="uranTable">
           <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
           <tbody></tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>
@@ -296,7 +353,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
   <!-- RIGHT -->
   <div>
     <!-- News -->
-    <div class="card">
+    <div class="card panel-news">
       <div class="card-header"><span class="dot news"></span>实时新闻</div>
       <div class="card-body" style="padding:0 16px">
         <div class="news-tabs">
@@ -312,7 +369,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
     </div>
 
     <!-- Chart Links -->
-    <div class="card">
+    <div class="card panel-news">
       <div class="card-header"><span class="dot overview"></span>快速图表</div>
       <div class="card-body">
         <div class="chip-row">
@@ -328,6 +385,44 @@ table.w .price{font-weight:600;transition:color 0.4s}
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:GOLD" target="_blank">黄金</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:CCJ" target="_blank">CCJ 卡梅科</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:HWM" target="_blank">HWM 豪迈航空</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 五角大楼披萨指数 (NEW) -->
+    <div class="card panel-pizza" style="display:none">
+      <div class="card-header"><span class="dot semi"></span>🍕 五角大楼披萨指数</div>
+      <div class="card-body">
+        <div class="pizza-status">
+          <div class="pizza-gauge">
+            <div class="level" style="color:var(--amber)">2</div>
+            <div class="label">当前威胁等级</div>
+          </div>
+          <div class="pizza-info">
+            <strong>"披萨指数"</strong> 是一个非正式但备受尊重的华盛顿指标——当五角大楼、CIA、白宫附近的披萨店深夜订单激增时，通常意味着大规模军事行动正在策划中。
+          </div>
+        </div>
+        <div class="pizza-meta">
+          <div class="pizza-meta-item">
+            <div class="pm-title">国防板块资金流</div>
+            <div class="pm-val" style="color:var(--green)">轻度流出</div>
+            <div class="pm-sub">资金从传统国防→AI航天</div>
+          </div>
+          <div class="pizza-meta-item">
+            <div class="pm-title">关键国防催化剂</div>
+            <div class="pm-val">伊朗MOU</div>
+            <div class="pm-sub">谈判结果影响国防脉冲</div>
+          </div>
+          <div class="pizza-meta-item">
+            <div class="pm-title">VIX 恐慌水平</div>
+            <div class="pm-val" style="color:var(--green)">低位</div>
+            <div class="pm-sub">市场定价和平溢价</div>
+          </div>
+          <div class="pizza-meta-item">
+            <div class="pm-title">航天国防情绪</div>
+            <div class="pm-val" style="color:var(--amber)">分化</div>
+            <div class="pm-sub">传统弱 / 商业航天强</div>
+          </div>
         </div>
       </div>
     </div>
@@ -611,6 +706,7 @@ function boot() {
   updateClock();
   setInterval(updateClock, 1000);
   loadTraderNotes();
+  initFuncBar();
   const k = key();
   if (k) {
     initData();
@@ -622,6 +718,46 @@ function boot() {
   }
   document.addEventListener('visibilitychange', ()=>{
     if (!document.hidden && initialLoadDone) { updateClock(); initData(); }
+  });
+}
+
+// ========== FUNCTION BAR TABS ==========
+function initFuncBar() {
+  const tabs = document.querySelectorAll('.func-tab');
+  const main = document.querySelector('main');
+  if (!tabs.length) return;
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function(){
+      tabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const panel = this.dataset.panel;
+      // Hide all panels first
+      document.querySelectorAll('.panel-notes,.panel-news,.panel-pizza').forEach(el => {
+        el.style.display = 'none';
+      });
+      if (panel === 'notes') {
+        // Show notes + news side by side
+        document.querySelectorAll('.panel-notes,.panel-news').forEach(el => {
+          el.style.display = '';
+        });
+        main.classList.remove('single-col');
+      } else if (panel === 'news') {
+        document.querySelectorAll('.panel-news').forEach(el => {
+          el.style.display = '';
+        });
+        main.classList.add('single-col');
+        fetchNews(currentNewsSrc);
+      } else if (panel === 'pizza') {
+        document.querySelectorAll('.panel-pizza').forEach(el => {
+          el.style.display = '';
+        });
+        main.classList.add('single-col');
+      }
+    });
+  });
+  // Default: notes active, show notes + news
+  document.querySelectorAll('.panel-notes,.panel-news').forEach(el => {
+    el.style.display = '';
   });
 }
 
