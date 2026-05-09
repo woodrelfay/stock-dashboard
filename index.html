@@ -229,33 +229,24 @@ table.w .price{font-weight:600;transition:color 0.4s}
   <!-- LEFT -->
   <div>
 
-    <!-- ★ 交易员笔记 — 前日复盘 -->
-    <div class="card">
-      <div class="card-header"><span class="dot trader"></span>交易员笔记 · 5月8日复盘</div>
+    <!-- ★ 交易员笔记 — 前日复盘（从trader_notes.json加载） -->
+    <div class="card" id="traderNotesCard">
+      <div class="card-header"><span class="dot trader"></span>交易员笔记 · 加载中...</div>
       <div class="card-body" style="padding:0">
-        <div class="trader-note">
+        <div class="trader-note" id="traderNotesContent">
           <div class="tn-title">📋 非农+115K远超预期 → "好数据=好消息"回归 → 纳指标普双创新高</div>
-
           <div class="tn-section"><strong>一、大盘：非农是最佳情景，但连续6周上涨后追高盈亏比变差</strong></div>
-          <div class="tn-bullet">4月非农+115K（预期仅+62K），几乎翻倍；时薪+0.2%低于预期+0.3%——"金发姑娘"数据：够强打消衰退恐惧，又不够热引发加息</div>
-          <div class="tn-bullet">标普500 +0.84%、纳指+1.71% 双创历史新高。连续第6周上涨，为2024年10月以来最长连涨周期</div>
-          <div class="tn-bullet">降息预期蒸发（6月按兵不动概率95%+），但市场不跌反涨——"增长叙事"取代了"宽松叙事"</div>
-          <div class="tn-bullet">U-6就业不足率从8.0%升至8.2%，兼职因经济原因暴增445K——"隐性松弛"值得警惕</div>
-
+          <div class="tn-bullet">4月非农+115K（预期仅+62K），几乎翻倍；时薪+0.2%低于预期+0.3%——"金发姑娘"数据</div>
+          <div class="tn-bullet">标普500 +0.84%、纳指+1.71% 双创历史新高，连续第6周上涨</div>
           <div class="tn-section"><strong>二、半导体：存储芯片爆炸，"AI扩圈"从GPU到全供应链</strong></div>
-          <div class="tn-bullet">MU +15.49%历史新高$746.81（存储短缺+AI服务器双驱动）、INTC +13.93%至$124.86（Apple代工谈判+CPU在AI中角色重估）、AMD +11.44%延续前日涨势</div>
-          <div class="tn-bullet">NVDA +1.75%稳坐$215.20，盘中创52周新高$217.80——"AI核心"避险+领涨双重角色</div>
-          <div class="tn-bullet">SOX +5.51%至11,775.50历史新高。之前SOX靠NVDA/AMD两只撑着，现在存储+CPU+设备全面参与——"AI牛市2.0"特征</div>
-
+          <div class="tn-bullet">MU +15.49%历史新高$746.81、INTC +13.93%至$124.86、AMD +11.44%延续前日涨势</div>
+          <div class="tn-bullet">SOX +5.51%至11,775.50历史新高——存储+CPU+设备全面参与，"AI牛市2.0"特征</div>
           <div class="tn-section"><strong>三、航天国防：RKLB暴涨34%，传统国防继续失血</strong></div>
-          <div class="tn-bullet">RKLB +34.32%至$105.55，成交量为均量247%。Q1营收$200M超预期+积压$2.2B+指引超预期——"航天AI"预期差爆发</div>
-          <div class="tn-bullet">传统国防（LMT -1.15%, NOC -0.50%, RTX -0.08%）继续被"停火+预算转移"叙事压制，资金从国防流出→流入AI和航天</div>
-
+          <div class="tn-bullet">RKLB +34.32%至$105.55，成交量均量247%，Q1营收$200M超预期</div>
+          <div class="tn-bullet">传统国防（LMT -1.15%, NOC -0.50%, RTX -0.08%）被"停火+预算转移"叙事压制</div>
           <div class="tn-section"><strong>四、铀矿核能：全线回调，但"三独立"逻辑未变</strong></div>
           <div class="tn-bullet">UUUU -8.44%领跌（Q1 EPS miss），CCJ -1.65%, UEC -2.76%——获利了结+UUUU财报拖累</div>
-          <div class="tn-bullet">"三独立"属性反而在芯片暴涨日得到验证：独立于伊朗/非农/芯片——回调是分散化入场窗口</div>
-
-          <div class="tn-dim">周末风险：伊朗答复MOU（谈崩→油价跳涨+国防脉冲 / 签协议→油价跌破$90+航运受益）。下周CPI(5/13)+AMAT财报(5/14)。策略：半仓+保留弹药，等周一回调2-3%再布局存储芯片和铀矿。</div>
+          <div class="tn-dim">周末风险：伊朗答复MOU。下周CPI(5/13)+AMAT财报(5/14)。策略：半仓+保留弹药。</div>
         </div>
       </div>
     </div>
@@ -619,6 +610,7 @@ document.querySelector('.news-tabs').addEventListener('click', function(e){
 function boot() {
   updateClock();
   setInterval(updateClock, 1000);
+  loadTraderNotes();
   const k = key();
   if (k) {
     initData();
@@ -631,6 +623,30 @@ function boot() {
   document.addEventListener('visibilitychange', ()=>{
     if (!document.hidden && initialLoadDone) { updateClock(); initData(); }
   });
+}
+
+// ========== LOAD TRADER NOTES FROM JSON ==========
+async function loadTraderNotes() {
+  const card = document.getElementById('traderNotesCard');
+  const content = document.getElementById('traderNotesContent');
+  if (!card || !content) return;
+  try {
+    const resp = await fetch('trader_notes.json');
+    if (!resp.ok) throw new Error('HTTP '+resp.status);
+    const data = await resp.json();
+    const header = card.querySelector('.card-header');
+    if (header) header.innerHTML = '<span class="dot trader"></span>交易员笔记 · '+data.date+'复盘';
+    let html = '<div class="tn-title">📋 '+data.title+'</div>';
+    (data.sections||[]).forEach(sec => {
+      html += '<div class="tn-section"><strong>'+sec.heading+'</strong></div>';
+      (sec.bullets||[]).forEach(b => { html += '<div class="tn-bullet">'+b+'</div>'; });
+    });
+    if (data.outlook) html += '<div class="tn-dim">'+data.outlook+'</div>';
+    content.innerHTML = html;
+  } catch(e) {
+    console.warn('Trader notes load failed, using fallback:', e.message);
+    // Keep hardcoded fallback if JSON fails
+  }
 }
 
 // ========== TICKER TAPE ==========
