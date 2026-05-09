@@ -211,7 +211,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
 <!-- SETTINGS -->
 <div class="settings-bar" id="settingsBar">
   <input type="text" id="keyInput" placeholder="粘贴 Finnhub API Key（免费注册: finnhub.io/register）">
-  <span class="note">Key仅保存在你的浏览器中 · <a href="https://finnhub.io/register" target="_blank">获取免费Key</a></span>
+  <span class="note">已预置默认Key，可直接使用 · <a href="https://finnhub.io/register" target="_blank">更换Key</a></span>
 </div>
 
 <!-- TICKER -->
@@ -394,7 +394,8 @@ function updateClock() {
 }
 
 // ========== API KEY ==========
-function key() { return (localStorage.getItem('finnhub_key')||'').trim(); }
+const DEFAULT_KEY = 'd7vduthr01qldb7fm7s0d7vduthr01qldb7fm7sg';
+function key() { return (localStorage.getItem('finnhub_key')||DEFAULT_KEY).trim(); }
 function toggleSettings() {
   const bar = document.getElementById('settingsBar');
   bar.classList.toggle('show');
