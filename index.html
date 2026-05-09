@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美股实时仪表盘</title>
+<style>
+:root{
+  --bg:#080c12;--card:#0f1419;--hover:#151b23;--border:#1e2936;
+  --text:#c8d1d9;--muted:#6e7681;--bright:#e6edf3;
+  --red:#f85149;--green:#3fb950;--amber:#d2991d;--blue:#58a6ff;
+  --orange:#f0883e;--purple:#a371f7;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+  font-size:13px;line-height:1.5;min-height:100vh;padding-bottom:40px;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===== HEADER ===== */
+header{
+  background:linear-gradient(180deg,#111820 0%,#0c1117 100%);
+  border-bottom:1px solid var(--border);padding:18px 20px 14px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+header .brand{display:flex;align-items:center;gap:10px}
+header h1{font-size:17px;font-weight:700;color:var(--bright);letter-spacing:0.5px}
+header .status{
+  display:flex;align-items:center;gap:6px;
+  padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600;
+  border:1px solid var(--border);
+}
+.status.open{color:var(--green);border-color:rgba(63,185,80,0.3);background:rgba(63,185,80,0.06)}
+.status.closed{color:var(--red);border-color:rgba(248,81,73,0.3);background:rgba(248,81,73,0.06)}
+.status.ext{color:var(--amber);border-color:rgba(210,153,29,0.3);background:rgba(210,153,29,0.06)}
+header .clock{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+header .actions{display:flex;gap:8px}
+header .actions button{
+  background:var(--card);border:1px solid var(--border);color:var(--muted);
+  padding:5px 10px;border-radius:5px;cursor:pointer;font-size:10px;
+  transition:all 0.15s;
+}
+header .actions button:hover{color:var(--text);border-color:#3a4a5c}
+
+/* ===== SETTINGS BAR ===== */
+.settings-bar{
+  display:none;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--border);
+  align-items:center;gap:10px;flex-wrap:wrap;
+}
+.settings-bar.show{display:flex}
+.settings-bar input{
+  flex:1;min-width:200px;max-width:340px;
+  padding:6px 10px;background:#080c12;border:1px solid var(--border);
+  color:var(--text);border-radius:4px;font-size:11px;
+}
+.settings-bar .note{font-size:9px;color:var(--muted)}
+.settings-bar .note a{color:var(--blue)}
+
+/* ===== WS STATUS BAR ===== */
+.ws-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 20px;font-size:10px;color:var(--muted);
+  background:rgba(255,255,255,0.008);border-bottom:1px solid rgba(255,255,255,0.03);
+  flex-wrap:wrap;gap:6px;
+}
+.ws-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px}
+.ws-dot.on{background:var(--green);box-shadow:0 0 4px rgba(63,185,80,0.5)}
+.ws-dot.off{background:var(--red)}
+.ws-dot.connecting{background:var(--amber);animation:pulse 1.5s infinite}
+@keyframes pulse{50%{opacity:0.2}}
+
+/* ===== MAIN GRID ===== */
+main{padding:16px 20px;display:grid;grid-template-columns:1fr 320px;gap:16px}
+@media(max-width:768px){main{grid-template-columns:1fr}}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:8px;overflow:hidden;margin-bottom:14px;
+}
+.card-header{
+  padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);
+  font-size:12px;font-weight:600;color:var(--bright);
+  display:flex;align-items:center;gap:8px;
+}
+.card-header .dot{width:8px;height:8px;border-radius:2px}
+.card-header .dot.semi{background:var(--red)}
+.card-header .dot.aero{background:var(--blue)}
+.card-header .dot.uran{background:var(--green)}
+.card-header .dot.news{background:var(--orange)}
+.card-header .dot.overview{background:var(--purple)}
+.card-body{padding:8px 14px}
+
+/* ===== OVERVIEW GRID ===== */
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.ov-item{
+  background:linear-gradient(135deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005));
+  border:1px solid rgba(255,255,255,0.04);border-radius:6px;
+  padding:12px 14px;text-align:center;transition:border-color 0.2s;
+}
+.ov-item:hover{border-color:rgba(255,255,255,0.1)}
+.ov-item .ov-name{font-size:10px;color:var(--muted);margin-bottom:3px;letter-spacing:0.3px}
+.ov-item .ov-price{font-size:17px;font-weight:700;color:var(--bright);font-variant-numeric:tabular-nums}
+.ov-item .ov-change{font-size:11px;margin-top:2px;font-weight:500}
+
+/* ===== TABLE ===== */
+table.w{width:100%;border-collapse:collapse;font-size:11px}
+table.w thead th{
+  text-align:left;padding:6px 8px;font-weight:500;font-size:9px;
+  color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;
+  border-bottom:1px solid var(--border);
+}
+table.w thead th.rt{text-align:right}
+table.w tbody td{
+  padding:6px 8px;border-bottom:1px solid rgba(255,255,255,0.02);
+  font-variant-numeric:tabular-nums;
+}
+table.w tbody tr{transition:background 0.15s}
+table.w tbody tr:hover{background:var(--hover)}
+table.w .rt{text-align:right}
+table.w .ticker{font-weight:600;color:var(--blue);font-size:11px}
+table.w .name{color:var(--text)}
+table.w .price{font-weight:600;transition:color 0.4s}
+
+/* ===== NEWS ===== */
+.news-scroll{max-height:520px;overflow-y:auto}
+.news-item{
+  display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.02);
+  cursor:pointer;text-decoration:none;color:inherit;transition:background 0.15s;
+}
+.news-item:hover{background:var(--hover);margin:0 -14px;padding:10px 14px}
+.news-item .ni-meta{font-size:9px;color:var(--muted);margin-bottom:2px}
+.news-item .ni-title{font-size:12px;color:var(--text);line-height:1.4;font-weight:500}
+.news-item .ni-summary{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
+
+/* ===== CHART LINKS ===== */
+.chip-row{display:flex;flex-wrap:wrap;gap:5px}
+.chip{
+  display:inline-block;padding:5px 11px;border-radius:14px;font-size:10px;font-weight:500;
+  text-decoration:none;transition:all 0.15s;
+  border:1px solid var(--border);color:var(--text);background:var(--card);
+}
+.chip:hover{border-color:#3a4a5c;background:var(--hover);color:var(--bright)}
+.chip.hl{background:rgba(88,166,255,0.08);border-color:rgba(88,166,255,0.2);color:var(--blue)}
+
+/* ===== EMPTY STATE ===== */
+.empty{text-align:center;padding:32px 16px;color:var(--muted)}
+.empty .icon{font-size:32px;margin-bottom:8px;opacity:0.4}
+.empty p{font-size:11px}
+.empty code{
+  background:var(--hover);padding:2px 6px;border-radius:3px;
+  font-size:10px;color:var(--amber);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#21262d;border-radius:3px}
+
+/* ===== TICKER TAPE WRAPPER ===== */
+.tt-wrap{background:#0a0f16;border-bottom:1px solid var(--border);height:44px;overflow:hidden}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="brand">
+    <h1>美股实时仪表盘</h1>
+    <span class="status closed" id="marketStatus">加载中</span>
+  </div>
+  <div class="clock" id="clock"></div>
+  <div class="actions">
+    <button onclick="toggleSettings()" title="API设置">⚙ 设置</button>
+    <button onclick="initData()" title="手动刷新">↻ 刷新</button>
+  </div>
+</header>
+
+<!-- SETTINGS -->
+<div class="settings-bar" id="settingsBar">
+  <input type="text" id="keyInput" placeholder="粘贴 Finnhub API Key（免费注册: finnhub.io/register）">
+  <span class="note">Key仅保存在你的浏览器中 · <a href="https://finnhub.io/register" target="_blank">获取免费Key</a></span>
+</div>
+
+<!-- TICKER TAPE -->
+<div class="tt-wrap"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div></div>
+
+<!-- WS STATUS -->
+<div class="ws-bar">
+  <span><span class="ws-dot off" id="wsDot"></span><span id="wsLabel">WebSocket: 未连接</span></span>
+  <span id="dataInfo"></span>
+  <span id="refreshInfo"></span>
+</div>
+
+<!-- MAIN -->
+<main>
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- Market Overview -->
+    <div class="card">
+      <div class="card-header"><span class="dot overview"></span>大盘概览</div>
+      <div class="card-body">
+        <div class="ov-grid" id="overviewGrid"></div>
+      </div>
+    </div>
+
+    <!-- Semiconductors -->
+    <div class="card">
+      <div class="card-header"><span class="dot semi"></span>半导体 · SOX</div>
+      <div class="card-body" style="padding:0">
+        <table class="w" id="semiTable">
+          <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Aerospace -->
+    <div class="card">
+      <div class="card-header"><span class="dot aero"></span>航天 · 国防</div>
+      <div class="card-body" style="padding:0">
+        <table class="w" id="aeroTable">
+          <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Uranium -->
+    <div class="card">
+      <div class="card-header"><span class="dot uran"></span>铀矿 · 核能</div>
+      <div class="card-body" style="padding:0">
+        <table class="w" id="uranTable">
+          <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+    <!-- News -->
+    <div class="card">
+      <div class="card-header"><span class="dot news"></span>实时新闻</div>
+      <div class="card-body" style="padding:0 14px">
+        <div class="news-scroll" id="newsList">
+          <div class="empty"><div class="icon">📰</div><p>设置API Key后自动加载</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Charts -->
+    <div class="card">
+      <div class="card-header"><span class="dot overview"></span>快速图表</div>
+      <div class="card-body">
+        <div class="chip-row">
+          <a class="chip hl" href="https://www.tradingview.com/chart/?symbol=NASDAQ:NVDA" target="_blank">NVDA 英伟达</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:SOX" target="_blank">SOX 半导体指数</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:AMD" target="_blank">AMD</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:MU" target="_blank">MU 美光</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:RKLB" target="_blank">RKLB 火箭实验室</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=AMEX:UUUU" target="_blank">UUUU 能源燃料</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:SPX" target="_blank">标普500</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:USOIL" target="_blank">WTI 原油</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:GOLD" target="_blank">黄金</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:CCJ" target="_blank">CCJ 卡梅科</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ========== CONFIG ==========
+const OVERVIEW = [
+  {s:'SPY',n:'标普500 ETF'},{s:'QQQ',n:'纳指100 ETF'},
+  {s:'IWM',n:'罗素2000 ETF'},{s:'DIA',n:'道指 ETF'},
+  {s:'VXX',n:'VIX 波动率'},{s:'TLT',n:'20Y+ 美债'},
+  {s:'USO',n:'WTI 原油'},{s:'GLD',n:'黄金 ETF'}
+];
+const SEMI = ['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SMH'];
+const AERO = ['RTX','LMT','NOC','BA','RKLB'];
+const URAN = ['UUUU','CCJ','UEC','DNN','NXE','URNM'];
+
+const NAMES = {
+  NVDA:'英伟达',AMD:'超威半导体',INTC:'英特尔',QCOM:'高通',MU:'美光科技',
+  AMAT:'应用材料',ASML:'阿斯麦',TSM:'台积电',ARM:'ARM',SMH:'半导体ETF',
+  RTX:'雷神技术',LMT:'洛克希德马丁',NOC:'诺斯罗普格鲁曼',BA:'波音',RKLB:'火箭实验室',
+  UUUU:'能源燃料',CCJ:'卡梅科',UEC:'铀能公司',DNN:'Denison矿业',NXE:'NexGen能源',URNM:'铀矿ETF',
+  SPY:'标普500',QQQ:'纳指100',IWM:'罗素2000',DIA:'道指',
+  VXX:'VIX短期',TLT:'20年以上美债',USO:'美国原油',GLD:'黄金'
+};
+
+// Price store
+const P = {}; // {symbol: {price, prevClose, ts}}
+
+// ========== MARKET STATUS ==========
+function market() {
+  const d = new Date();
+  const day = d.getUTCDay();
+  const m = d.getUTCHours()*60+d.getUTCMinutes();
+  const open=13*60+30, close=20*60, pre=9*60;
+  if (day===0||day===6) return {s:'closed',l:'周末休市',c:'closed'};
+  if (m>=open&&m<close) return {s:'open',l:'● 盘中交易',c:'open'};
+  if (m>=pre&&m<open) return {s:'ext',l:'◐ 盘前交易',c:'ext'};
+  if (m>=close&&m<close+240) return {s:'ext',l:'◑ 盘后交易',c:'ext'};
+  return {s:'closed',l:'○ 已收盘',c:'closed'};
+}
+
+function updateClock() {
+  const ms = market();
+  const el = document.getElementById('marketStatus');
+  el.textContent = ms.l;
+  el.className = 'status '+ms.c;
+
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  document.getElementById('refreshInfo').textContent =
+    '刷新: WebSocket实时' + (ms.s==='open'?' · 新闻/120s':' · 新闻/300s');
+  return ms;
+}
+
+// ========== API KEY ==========
+function key() { return (localStorage.getItem('finnhub_key')||'').trim(); }
+function toggleSettings() {
+  const bar = document.getElementById('settingsBar');
+  bar.classList.toggle('show');
+  if (bar.classList.contains('show')) document.getElementById('keyInput').focus();
+}
+
+const ki = document.getElementById('keyInput');
+ki.value = key();
+ki.addEventListener('input', function(){
+  localStorage.setItem('finnhub_key', this.value.trim());
+  if (this.value.trim()) initData();
+});
+
+// ========== REST QUOTE (PARALLEL) ==========
+async function fetchQuote(sym) {
+  const k = key(); if (!k) return null;
+  try {
+    const r = await fetch(`https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(sym)}&token=${k}`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (d.c===0 && d.pc===0) return null;
+    return {price:d.c, prevClose:d.pc, change:d.d, changePct:d.dp};
+  } catch(e) { return null; }
+}
+
+// ========== BUILD TABLES ==========
+function buildAll() {
+  // Overview
+  document.getElementById('overviewGrid').innerHTML = OVERVIEW.map(o=>`
+    <div class="ov-item" data-sym="${o.s}">
+      <div class="ov-name">${o.n}</div>
+      <div class="ov-price">--</div>
+      <div class="ov-change"></div>
+    </div>`).join('');
+
+  // Watchlists
+  [['semiTable',SEMI],['aeroTable',AERO],['uranTable',URAN]].forEach(([id,syms])=>{
+    document.getElementById(id).querySelector('tbody').innerHTML = syms.map(s=>`
+      <tr data-sym="${s}">
+        <td class="ticker">${s}</td>
+        <td class="name">${NAMES[s]||s}</td>
+        <td class="price rt">--</td>
+        <td class="rt chg"></td>
+        <td class="rt pct"></td>
+      </tr>`).join('');
+  });
+}
+
+// ========== UPDATE DOM ==========
+function updateOne(sym, data) {
+  if (!data || !data.price) return;
+  const prevClose = data.prevClose || 0;
+  const change = prevClose>0 ? data.price-prevClose : 0;
+  const changePct = prevClose>0 ? (change/prevClose*100) : 0;
+
+  // Overview card
+  const card = document.querySelector(`.ov-item[data-sym="${sym}"]`);
+  if (card) {
+    card.querySelector('.ov-price').textContent = '$'+data.price.toFixed(2);
+    if (prevClose>0) {
+      const sign = change>=0?'+':'';
+      const clr = change>=0?'var(--green)':'var(--red)';
+      card.querySelector('.ov-change').innerHTML = `<span style="color:${clr}">${sign}${change.toFixed(2)} (${sign}${changePct.toFixed(2)}%)</span>`;
+    }
+  }
+
+  // Table row
+  const row = document.querySelector(`tr[data-sym="${sym}"]`);
+  if (row) {
+    const priceEl = row.querySelector('.price');
+    const chgEl = row.querySelector('.chg');
+    const pctEl = row.querySelector('.pct');
+    if (priceEl) {
+      const oldP = parseFloat(priceEl.dataset.last||'0');
+      priceEl.textContent = '$'+data.price.toFixed(2);
+      if (oldP>0 && Math.abs(data.price-oldP)>0.005) {
+        priceEl.style.color = data.price>oldP ? 'var(--green)' : 'var(--red)';
+        setTimeout(()=>priceEl.style.color='', 500);
+      }
+      priceEl.dataset.last = data.price;
+    }
+    if (chgEl && prevClose>0) {
+      const sign = change>=0?'+':'';
+      chgEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${sign}${change.toFixed(2)}</span>`;
+      pctEl.innerHTML = `<span style="color:var(--${change>=0?'green':'red'})">${sign}${changePct.toFixed(2)}%</span>`;
+    }
+  }
+}
+
+// ========== INIT: PARALLEL REST → INSTANT DATA ==========
+let initialLoadDone = false;
+async function initData() {
+  updateClock();
+  const k = key();
+  if (!k) {
+    buildAll();
+    document.getElementById('dataInfo').textContent = '请设置API Key';
+    return;
+  }
+
+  if (!initialLoadDone) buildAll();
+
+  const allSyms = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
+  document.getElementById('dataInfo').textContent = '加载 '+allSyms.length+' 只标的...';
+
+  // FIRE ALL PARALLEL — no artificial delays!
+  const results = await Promise.allSettled(allSyms.map(s=>fetchQuote(s)));
+
+  let loaded = 0;
+  results.forEach((r,i)=>{
+    if (r.status==='fulfilled' && r.value && r.value.price>0) {
+      const sym = allSyms[i];
+      P[sym] = {price:r.value.price, prevClose:r.value.prevClose, ts:Date.now()};
+      updateOne(sym, r.value);
+      loaded++;
+    }
+  });
+
+  document.getElementById('dataInfo').textContent = `已加载 ${loaded}/${allSyms.length} 只 · ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+  initialLoadDone = true;
+
+  // Connect WebSocket for live updates
+  connectWS();
+
+  // Load news
+  fetchNews();
+}
+
+// ========== WEBSOCKET (LIVE UPDATES) ==========
+let ws=null, wsTimer=null;
+
+function connectWS() {
+  const k = key(); if (!k) return;
+  if (ws) { try{ws.close()}catch(e){} }
+  if (wsTimer) clearTimeout(wsTimer);
+
+  document.getElementById('wsDot').className = 'ws-dot connecting';
+  document.getElementById('wsLabel').textContent = 'WebSocket: 连接中...';
+
+  ws = new WebSocket(`wss://ws.finnhub.io?token=${k}`);
+
+  ws.onopen = ()=>{
+    document.getElementById('wsDot').className = 'ws-dot on';
+    document.getElementById('wsLabel').textContent = 'WebSocket: 实时在线';
+
+    const all = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
+    all.forEach(s=>ws.send(JSON.stringify({type:'subscribe',symbol:s})));
+  };
+
+  ws.onmessage = (e)=>{
+    const msg = JSON.parse(e.data);
+    if (msg.type==='trade' && msg.data) {
+      for (const t of msg.data) {
+        if (!P[t.s]) P[t.s] = {};
+        P[t.s].price = t.p;
+        P[t.s].ts = t.t;
+        updateOne(t.s, {price:t.p, prevClose:P[t.s].prevClose});
+      }
+    }
+  };
+
+  ws.onclose = ()=>{
+    document.getElementById('wsDot').className = 'ws-dot off';
+    document.getElementById('wsLabel').textContent = 'WebSocket: 断开,5秒重连';
+    wsTimer = setTimeout(connectWS, 5000);
+  };
+
+  ws.onerror = ()=>{
+    document.getElementById('wsDot').className = 'ws-dot off';
+    document.getElementById('wsLabel').textContent = 'WebSocket: 连接失败';
+  };
+}
+
+// ========== NEWS ==========
+async function fetchNews() {
+  const k = key(); if (!k) return;
+  const el = document.getElementById('newsList');
+  try {
+    const r = await fetch(`https://finnhub.io/api/v1/news?category=general&token=${k}`);
+    if (!r.ok) throw new Error('fail');
+    const data = await r.json();
+    if (!data?.length) { el.innerHTML='<div class="empty"><p>暂无新闻</p></div>'; return; }
+    el.innerHTML = data.slice(0,30).map(n=>{
+      const d = new Date(n.datetime*1000);
+      const ts = d.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+      return `<a class="news-item" href="${n.url}" target="_blank">
+        <div class="ni-meta">${ts} · ${n.source||''} · ${n.category||''}</div>
+        <div class="ni-title">${n.headline}</div>
+        <div class="ni-summary">${(n.summary||'').slice(0,110)}</div>
+      </a>`;
+    }).join('');
+  } catch(e) { el.innerHTML='<div class="empty"><p>新闻加载失败,稍后重试</p></div>'; }
+}
+
+// ========== STARTUP ==========
+function boot() {
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  const k = key();
+  if (k) {
+    initData(); // Fires REST immediately, then WS
+
+    // Periodic news refresh
+    const newsInterval = market().s==='open' ? 120000 : 300000;
+    setInterval(fetchNews, newsInterval);
+  } else {
+    buildAll();
+    document.getElementById('dataInfo').textContent = '请点击 ⚙ 设置 输入API Key';
+  }
+
+  // Refresh on tab focus
+  document.addEventListener('visibilitychange', ()=>{
+    if (!document.hidden && initialLoadDone) {
+      updateClock();
+      initData();
+    }
+  });
+}
+
+// ========== TRADINGVIEW TICKER ==========
+(function(){
+  const syms = [
+    {proName:'TVC:DJI',title:'道指'},{proName:'TVC:SPX',title:'标普500'},
+    {proName:'TVC:NDX',title:'纳指'},{proName:'TVC:RUT',title:'罗素'},
+    {proName:'TVC:VIX',title:'VIX'},{proName:'NASDAQ:NVDA',title:'英伟达'},
+    {proName:'NASDAQ:AMD',title:'AMD'},{proName:'NASDAQ:INTC',title:'英特尔'},
+    {proName:'NASDAQ:QCOM',title:'高通'},{proName:'NASDAQ:MU',title:'美光'},
+    {proName:'NASDAQ:AMAT',title:'应用材料'},{proName:'NASDAQ:ASML',title:'阿斯麦'},
+    {proName:'NYSE:TSM',title:'台积电'},{proName:'NASDAQ:ARM',title:'ARM'},
+    {proName:'NYSE:RTX',title:'雷神'},{proName:'NYSE:LMT',title:'洛克希德'},
+    {proName:'NYSE:NOC',title:'诺斯罗普'},{proName:'NYSE:BA',title:'波音'},
+    {proName:'NASDAQ:RKLB',title:'火箭实验室'},{proName:'AMEX:UUUU',title:'能源燃料'},
+    {proName:'NYSE:CCJ',title:'卡梅科'},{proName:'AMEX:UEC',title:'铀能'},
+    {proName:'AMEX:DNN',title:'Denison'},{proName:'NYSE:NXE',title:'NexGen'},
+    {proName:'TVC:USOIL',title:'原油'},{proName:'TVC:GOLD',title:'黄金'},
+    {proName:'TVC:US10Y',title:'10Y美债'}
+  ];
+  const s = document.createElement('script');
+  s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+  s.async = true;
+  s.textContent = JSON.stringify({
+    symbols:syms,showSymbolLogo:false,colorTheme:'dark',
+    isTransparent:true,displayMode:'compact',locale:'zh_CN'
+  });
+  document.querySelector('.tt-wrap .tradingview-widget-container__widget').appendChild(s);
+})();
+
+// GO
+window.addEventListener('DOMContentLoaded', ()=>setTimeout(boot, 300));
+</script>
+</body>
+</html>
