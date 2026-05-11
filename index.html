@@ -743,9 +743,14 @@ function updateOne(sym, data) {
 // ========== YAHOO FINANCE INDEX ==========
 async function fetchYahooIndex(ys) {
   if (!ys) return null;
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1d&range=2d`;
+  // Try direct first, then CORS proxy
+  let r = await fetch(url).catch(()=>null);
+  if (!r || !r.ok) {
+    r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`).catch(()=>null);
+  }
+  if (!r || !r.ok) return null;
   try {
-    const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1d&range=2d`);
-    if (!r.ok) return null;
     const d = await r.json();
     const meta = d.chart?.result?.[0]?.meta;
     if (!meta) return null;
