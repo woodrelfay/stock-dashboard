@@ -593,8 +593,8 @@ const INDEX_ROW = [
 const INSTRUMENT_ROW = [
   {s:'VIX', n:'VIX恐慌指数',   fmt:'decimal'},
   {s:'TNX', ys:'^TNX', n:'10Y美债收益率', fmt:'pct'},
-  {s:'USO', n:'WTI原油',       fmt:'price'},
-  {s:'GLD', n:'黄金',           fmt:'price'}
+  {s:'CL',  ys:'CL=F', n:'WTI原油',  fmt:'price'},
+  {s:'GC',  ys:'GC=F', n:'黄金',    fmt:'price'}
 ];
 const SEMI = ['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SMH'];
 const AERO = ['RTX','LMT','NOC','BA','RKLB','HWM','ATI','CRS','TROX','CC'];
@@ -762,20 +762,21 @@ async function initData() {
   if (!k) { buildAll(); document.getElementById('dataInfo').textContent = '请设置API Key'; return; }
   if (!initialLoadDone) buildAll();
 
-  const wsSyms = [...new Set([...SEMI,...AERO,...URAN,...INSTRUMENT_ROW.map(o=>o.s)])];
-  document.getElementById('dataInfo').textContent = '加载 '+wsSyms.length+' 只标的...';
+  const wsSyms = [...new Set([...SEMI,...AERO,...URAN])];
+  document.getElementById('dataInfo').textContent = '加载中...';
 
-  // Parallel: Finnhub REST for stocks + Yahoo for indices
+  // Parallel: Finnhub REST for stocks + Yahoo for indices & commodities
   const fhPromise = Promise.allSettled(wsSyms.map(s=>fetchQuote(s)));
-  const yhPromise = Promise.allSettled(INDEX_ROW.filter(o=>o.ys).map(o=>fetchYahooIndex(o.ys)));
-  // Also try Yahoo for TNX (10Y yield)
+  // All Yahoo targets: INDEX_ROW + INSTRUMENT_ROW items that have ys
+  const yhTargets = [...INDEX_ROW.filter(o=>o.ys), ...INSTRUMENT_ROW.filter(o=>o.ys && o.s!=='TNX')];
+  const yhPromise = Promise.allSettled(yhTargets.map(o=>fetchYahooIndex(o.ys)));
   const tnxRow = INSTRUMENT_ROW.find(o=>o.s==='TNX');
   const tnxPromise = tnxRow && tnxRow.ys ? fetchYahooIndex(tnxRow.ys) : Promise.resolve(null);
 
   const [fhResults, yhResults] = await Promise.all([fhPromise, yhPromise]);
   let loaded = 0;
 
-  // Process Finnhub results
+  // Process Finnhub results (stocks only)
   fhResults.forEach((r,i)=>{
     if (r.status==='fulfilled' && r.value && r.value.price>0) {
       const sym = wsSyms[i];
@@ -785,17 +786,17 @@ async function initData() {
     }
   });
 
-  // Process Yahoo index results
+  // Process Yahoo results (indices + commodities)
   const yhData = await tnxPromise;
   yhResults.forEach((r,i)=>{
     if (r.status==='fulfilled' && r.value && r.value.price>0) {
-      const sym = INDEX_ROW[i].s;
+      const sym = yhTargets[i].s;
       P[sym] = {price:r.value.price, prevClose:r.value.prevClose, ts:Date.now()};
       updateOne(sym, r.value);
       loaded++;
     }
   });
-  // TNX
+  // TNX (separate because it needs % formatting)
   if (yhData && yhData.price>0) {
     P['TNX'] = {price:yhData.price, prevClose:yhData.prevClose, ts:Date.now()};
     updateOne('TNX', yhData);
@@ -823,7 +824,7 @@ function connectWS() {
   ws.onopen = ()=>{
     document.getElementById('wsDot').className = 'ws-dot on';
     document.getElementById('wsLabel').textContent = 'WebSocket: 实时在线';
-    const all = [...new Set([...SEMI,...AERO,...URAN,...INSTRUMENT_ROW.map(o=>o.s)])];
+    const all = [...new Set([...SEMI,...AERO,...URAN])];
     all.forEach(s=>ws.send(JSON.stringify({type:'subscribe',symbol:s})));
   };
   ws.onmessage = (e)=>{
