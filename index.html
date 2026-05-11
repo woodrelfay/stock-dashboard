@@ -101,6 +101,24 @@ header .actions button:hover{color:var(--text);border-color:#3a4a5c}
 .scroll-tbl table.w thead{position:sticky;top:0;z-index:1}
 .scroll-tbl table.w thead th{background:var(--card)}
 
+/* ===== JOURNAL ===== */
+.jn-section{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.jn-section:last-child{border-bottom:none;margin-bottom:0}
+.jn-section-title{font-size:13px;font-weight:600;color:var(--bright);margin-bottom:8px;padding-left:8px;border-left:2px solid var(--green)}
+.jn-textarea{width:100%;min-height:72px;padding:10px 12px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;font-family:inherit;line-height:1.6;resize:vertical;transition:border-color 0.2s}
+.jn-textarea:focus{outline:none;border-color:var(--green)}
+.jn-textarea::placeholder{color:var(--muted);opacity:0.5}
+.jn-trade-form{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;align-items:center}
+.jn-trade-form input,.jn-trade-form select{padding:4px 8px;font-size:11px;font-family:inherit;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px}
+.jn-trade-form button{padding:4px 14px;font-size:12px;font-weight:700;background:var(--green);border:none;color:#000;border-radius:4px;cursor:pointer}
+.jn-check{display:block;font-size:12px;color:var(--text);padding:3px 0;cursor:pointer}
+.jn-check input[type="checkbox"]{margin-right:6px;accent-color:var(--green)}
+.jn-badge{display:inline-block;padding:1px 5px;border-radius:3px;font-size:10px;font-weight:600}
+.jn-badge.buy{background:rgba(63,185,80,0.15);color:var(--green)}
+.jn-badge.sell{background:rgba(248,81,73,0.15);color:var(--red)}
+.jn-del{color:var(--red);cursor:pointer;font-size:14px;padding:0 4px;opacity:0.5;transition:opacity 0.15s}
+.jn-del:hover{opacity:1}
+
 /* ===== PIZZA INDEX ===== */
 .pizza-status{
   display:flex;align-items:center;gap:16px;padding:16px;
@@ -161,6 +179,7 @@ main.single-col{grid-template-columns:1fr}
 .trader-note .tn-dim{color:var(--amber);font-size:12px;margin-top:10px;font-style:italic}
 
 /* ===== OVERVIEW ===== */
+.ov-section-label{font-size:11px;color:var(--muted);margin-bottom:6px;letter-spacing:0.5px}
 .ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
 .ov-item{
   background:linear-gradient(135deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005));
@@ -217,6 +236,28 @@ table.w .price{font-weight:600;transition:color 0.4s}
 .news-source-badge.cnbc{background:rgba(63,185,80,0.15);color:var(--green)}
 .news-source-badge.mw{background:rgba(210,153,29,0.15);color:var(--amber)}
 .news-source-badge.yahoo{background:rgba(163,113,247,0.15);color:var(--purple)}
+
+/* ===== IMPACT BADGES ===== */
+.impact-badge{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:600;margin-left:4px}
+.impact-badge.high{background:rgba(248,81,73,0.18);color:var(--red)}
+.impact-badge.medium{background:rgba(210,153,29,0.18);color:var(--amber)}
+.sector-tag{display:inline-block;padding:1px 5px;border-radius:3px;font-size:9px;margin-left:4px;background:rgba(88,166,255,0.08);color:var(--blue);border:1px solid rgba(88,166,255,0.12)}
+
+/* ===== NEWS FILTER ===== */
+.news-filter{display:flex;gap:6px;margin-bottom:8px}
+.news-filter select{flex:1;padding:4px 8px;font-size:11px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;font-family:inherit}
+
+/* ===== BREADTH ===== */
+.breadth-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.breadth-item{background:linear-gradient(135deg,rgba(255,255,255,0.015),rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.04);border-radius:6px;padding:12px 14px;text-align:center}
+.breadth-item .br-label{font-size:10px;color:var(--muted);margin-bottom:4px;letter-spacing:0.3px}
+.breadth-item .br-value{font-size:18px;font-weight:700;color:var(--bright);font-variant-numeric:tabular-nums}
+.breadth-item .br-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.breadth-bullish{color:var(--green)!important}
+.breadth-bearish{color:var(--red)!important}
+.breadth-neutral{color:var(--amber)!important}
+.breadth-loading{grid-column:1/-1;text-align:center;padding:24px;color:var(--muted);font-size:12px}
+@media(max-width:768px){.breadth-grid{grid-template-columns:repeat(2,1fr)}}
 
 /* ===== CHART LINKS ===== */
 .chip-row{display:flex;flex-wrap:wrap;gap:6px}
@@ -279,6 +320,7 @@ table.w .price{font-weight:600;transition:color 0.4s}
   <div class="func-tab active" data-panel="notes"><span class="fdot notes"></span>交易员笔记</div>
   <div class="func-tab" data-panel="news"><span class="fdot news"></span>实时新闻</div>
   <div class="func-tab" data-panel="pizza"><span class="fdot pizza"></span>五角大楼披萨指数</div>
+  <div class="func-tab" data-panel="journal"><span class="fdot" style="background:var(--green)"></span>我的交易</div>
 </div>
 
 <!-- MAIN -->
@@ -312,7 +354,23 @@ table.w .price{font-weight:600;transition:color 0.4s}
     <div class="card panel-notes">
       <div class="card-header"><span class="dot overview"></span>大盘概览</div>
       <div class="card-body">
-        <div class="ov-grid" id="overviewGrid"></div>
+        <div class="ov-section-label">四大指数</div>
+        <div class="ov-grid" id="indexGrid"></div>
+        <div class="ov-section-label" style="margin-top:14px">关键指标</div>
+        <div class="ov-grid" id="instrumentGrid"></div>
+      </div>
+    </div>
+
+    <!-- ★ 市场宽度 (NEW V6) -->
+    <div class="card panel-notes" id="breadthCard">
+      <div class="card-header">
+        <span class="dot" style="background:var(--amber)"></span>市场宽度 · 资金流向
+        <span style="font-size:10px;color:var(--muted);margin-left:auto" id="breadthUpdated"></span>
+      </div>
+      <div class="card-body">
+        <div class="breadth-grid" id="breadthGrid">
+          <div class="breadth-loading">等待交易员笔记数据...</div>
+        </div>
       </div>
     </div>
 
@@ -354,6 +412,77 @@ table.w .price{font-weight:600;transition:color 0.4s}
         </div>
       </div>
     </div>
+
+    <!-- ★★★★★ 我的交易 (NEW V6) ★★★★★ -->
+    <div class="card panel-journal" style="display:none" id="journalCard">
+      <div class="card-header">
+        <span class="dot" style="background:var(--green)"></span>我的交易
+        <span style="font-size:11px;color:var(--muted);margin-left:8px" id="journalMeta"></span>
+        <input type="date" id="journalDatePicker" style="margin-left:auto;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;padding:3px 8px;font-size:12px;font-family:inherit" onchange="loadJournal(this.value)">
+      </div>
+      <div class="card-body" id="journalBody">
+        <!-- A: 今日剧本 -->
+        <div class="jn-section">
+          <div class="jn-section-title">📋 今日剧本 · Morning Thesis</div>
+          <textarea class="jn-textarea" id="jnThesis" placeholder="我今天假设的剧本是什么？关键催化剂、预期走势、应对计划..." onchange="saveJournalSection('thesis', this.value)"></textarea>
+        </div>
+        <!-- B: 实盘操作 -->
+        <div class="jn-section">
+          <div class="jn-section-title">📊 实盘操作 · Trade Log</div>
+          <div class="jn-trade-form">
+            <input type="text" id="jnTradeSymbol" placeholder="代码" style="width:70px">
+            <select id="jnTradeAction"><option value="buy">买</option><option value="sell">卖</option></select>
+            <input type="number" id="jnTradeQty" placeholder="数量" style="width:65px" step="any">
+            <input type="number" id="jnTradePrice" placeholder="价格" style="width:85px" step="any">
+            <input type="text" id="jnTradeReason" placeholder="理由" style="flex:1;min-width:80px">
+            <button onclick="addTrade()">+</button>
+          </div>
+          <div class="scroll-tbl" style="max-height:240px">
+          <table class="w" id="jnTradeTable">
+            <thead><tr><th>时间</th><th>代码</th><th>方向</th><th>数量</th><th>价格</th><th>理由</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+          </div>
+        </div>
+        <!-- C: 仓位变化 -->
+        <div class="jn-section">
+          <div class="jn-section-title">📐 仓位变化 · Position Changes</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px">
+            <input type="text" id="jnPosSymbol" placeholder="代码" style="width:70px;padding:4px 8px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:11px">
+            <input type="text" id="jnPosBefore" placeholder="之前%" style="width:60px;padding:4px 8px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:11px">
+            <span style="color:var(--muted);align-self:center">→</span>
+            <input type="text" id="jnPosAfter" placeholder="之后%" style="width:60px;padding:4px 8px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;font-size:11px">
+            <button onclick="addPosition()" style="padding:4px 12px;font-size:11px;background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:4px;cursor:pointer">添加</button>
+          </div>
+          <div id="jnPositionsList" style="font-size:12px"></div>
+        </div>
+        <!-- D: 盈亏归因 -->
+        <div class="jn-section">
+          <div class="jn-section-title">🔍 盈亏归因 · P&amp;L Attribution</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div>
+              <div style="font-size:11px;color:var(--green);margin-bottom:4px">盈利来源</div>
+              <label class="jn-check"><input type="checkbox" data-attrib="profit_beta" onchange="saveAttribution()"> 市场Beta</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="profit_rotation" onchange="saveAttribution()"> 行业轮动</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="profit_timing" onchange="saveAttribution()"> 择时能力</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="profit_luck" onchange="saveAttribution()"> 运气成分</label>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--red);margin-bottom:4px">亏损来源</div>
+              <label class="jn-check"><input type="checkbox" data-attrib="loss_emotion" onchange="saveAttribution()"> 情绪交易</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="loss_chase" onchange="saveAttribution()"> FOMO追高</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="loss_stop" onchange="saveAttribution()"> 止损过紧</label>
+              <label class="jn-check"><input type="checkbox" data-attrib="loss_size" onchange="saveAttribution()"> 仓位过大</label>
+            </div>
+          </div>
+        </div>
+        <!-- E: 心理回顾 -->
+        <div class="jn-section">
+          <div class="jn-section-title">🧠 心理回顾 · Psychology</div>
+          <textarea class="jn-textarea" id="jnPsychology" placeholder="情绪状态？是否按纪律执行？认知偏误？（确认偏误、过度自信、损失厌恶、锚定效应...）" onchange="saveJournalSection('psychology', this.value)"></textarea>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- RIGHT -->
@@ -367,6 +496,21 @@ table.w .price{font-weight:600;transition:color 0.4s}
           <span class="news-tab" data-src="cnbc">CNBC</span>
           <span class="news-tab" data-src="mw">MarketWatch</span>
           <span class="news-tab" data-src="yahoo">Yahoo Finance</span>
+        </div>
+        <div class="news-filter">
+          <select id="impactFilter" onchange="applyNewsFilter()">
+            <option value="all">全部影响力</option>
+            <option value="high">高影响力</option>
+            <option value="medium">中影响力</option>
+            <option value="low">普通</option>
+          </select>
+          <select id="sectorFilter" onchange="applyNewsFilter()">
+            <option value="all">全部板块</option>
+            <option value="semiconductor">半导体</option>
+            <option value="aerospace">航天国防</option>
+            <option value="uranium">铀矿核能</option>
+            <option value="macro">大盘宏观</option>
+          </select>
         </div>
         <div class="news-scroll" id="newsList">
           <div class="empty"><div class="icon">📰</div><p>设置API Key后自动加载</p></div>
@@ -438,11 +582,19 @@ table.w .price{font-weight:600;transition:color 0.4s}
 <!-- ==================== SCRIPTS ==================== -->
 <script>
 // ========== CONFIG ==========
-const OVERVIEW = [
-  {s:'SPY',n:'标普500 ETF'},{s:'QQQ',n:'纳指100 ETF'},
-  {s:'IWM',n:'罗素2000 ETF'},{s:'DIA',n:'道指 ETF'},
-  {s:'VXX',n:'VIX 波动率'},{s:'TLT',n:'20Y+ 美债'},
-  {s:'USO',n:'WTI 原油'},{s:'GLD',n:'黄金 ETF'}
+// 四大指数 — 从Yahoo Finance拉实际指数值
+const INDEX_ROW = [
+  {s:'SPX', ys:'^GSPC', n:'标普500',   fmt:'index'},
+  {s:'NDX', ys:'^IXIC', n:'纳斯达克',   fmt:'index'},
+  {s:'DJI', ys:'^DJI',  n:'道琼斯',     fmt:'index'},
+  {s:'RUT', ys:'^RUT',  n:'罗素2000',   fmt:'index'}
+];
+// 关键指标 — Finnhub可直接拉的交易品种
+const INSTRUMENT_ROW = [
+  {s:'VIX', n:'VIX恐慌指数',   fmt:'decimal'},
+  {s:'TNX', ys:'^TNX', n:'10Y美债收益率', fmt:'pct'},
+  {s:'USO', n:'WTI原油',       fmt:'price'},
+  {s:'GLD', n:'黄金',           fmt:'price'}
 ];
 const SEMI = ['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SMH'];
 const AERO = ['RTX','LMT','NOC','BA','RKLB','HWM','ATI','CRS','TROX','CC'];
@@ -454,8 +606,7 @@ const NAMES = {
   RTX:'雷神技术',LMT:'洛克希德马丁',NOC:'诺斯罗普格鲁曼',BA:'波音',RKLB:'火箭实验室',
   HWM:'豪迈航空',ATI:'ATI特种金属',CRS:'Carpenter科技',TROX:'Tronox',CC:'Chemours',
   UUUU:'能源燃料',CCJ:'卡梅科',UEC:'铀能公司',DNN:'Denison矿业',NXE:'NexGen能源',URNM:'铀矿ETF',
-  SPY:'标普500',QQQ:'纳指100',IWM:'罗素2000',DIA:'道指',
-  VXX:'VIX短期',TLT:'20年以上美债',USO:'美国原油',GLD:'黄金'
+  USO:'WTI原油',GLD:'黄金'
 };
 
 const P = {}; // {symbol: {price, prevClose, ts}}
@@ -514,8 +665,16 @@ async function fetchQuote(sym) {
 
 // ========== BUILD TABLES ==========
 function buildAll() {
-  document.getElementById('overviewGrid').innerHTML = OVERVIEW.map(o=>`
-    <div class="ov-item" data-sym="${o.s}">
+  // 四大指数
+  document.getElementById('indexGrid').innerHTML = INDEX_ROW.map(o=>`
+    <div class="ov-item" data-sym="${o.s}" data-fmt="${o.fmt}">
+      <div class="ov-name">${o.n}</div>
+      <div class="ov-price">--</div>
+      <div class="ov-change"></div>
+    </div>`).join('');
+  // 关键指标
+  document.getElementById('instrumentGrid').innerHTML = INSTRUMENT_ROW.map(o=>`
+    <div class="ov-item" data-sym="${o.s}" data-fmt="${o.fmt}">
       <div class="ov-name">${o.n}</div>
       <div class="ov-price">--</div>
       <div class="ov-change"></div>
@@ -533,6 +692,15 @@ function buildAll() {
   });
 }
 
+// 格式化价格（根据fmt类型）
+function fmtPrice(val, fmt) {
+  if (val == null || isNaN(val)) return '--';
+  if (fmt === 'index') return Number(val).toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  if (fmt === 'decimal') return Number(val).toFixed(2);
+  if (fmt === 'pct') return Number(val).toFixed(2)+'%';
+  return '$'+Number(val).toFixed(2); // price
+}
+
 // ========== UPDATE DOM ==========
 function updateOne(sym, data) {
   if (!data || !data.price) return;
@@ -542,11 +710,13 @@ function updateOne(sym, data) {
 
   const card = document.querySelector(`.ov-item[data-sym="${sym}"]`);
   if (card) {
-    card.querySelector('.ov-price').textContent = '$'+data.price.toFixed(2);
+    const fmt = card.dataset.fmt || 'price';
+    card.querySelector('.ov-price').textContent = fmtPrice(data.price, fmt);
     if (pc>0) {
       const s = change>=0?'+':'';
+      const chgStr = fmt==='index' ? (s+change.toFixed(2)) : (s+change.toFixed(2));
       card.querySelector('.ov-change').innerHTML =
-        `<span style="color:var(--${change>=0?'green':'red'})">${s}${change.toFixed(2)} (${s}${changePct.toFixed(2)}%)</span>`;
+        `<span style="color:var(--${change>=0?'green':'red'})">${chgStr} (${s}${changePct.toFixed(2)}%)</span>`;
     }
   }
 
@@ -570,6 +740,20 @@ function updateOne(sym, data) {
   }
 }
 
+// ========== YAHOO FINANCE INDEX ==========
+async function fetchYahooIndex(ys) {
+  if (!ys) return null;
+  try {
+    const r = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ys)}?interval=1d&range=2d`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    const meta = d.chart?.result?.[0]?.meta;
+    if (!meta) return null;
+    const pc = meta.previousClose || meta.chartPreviousClose;
+    return {price:meta.regularMarketPrice, prevClose:pc, change:meta.regularMarketPrice-pc, changePct:(meta.regularMarketPrice-pc)/pc*100};
+  } catch(e) { return null; }
+}
+
 // ========== INIT: PARALLEL REST ==========
 let initialLoadDone = false;
 async function initData() {
@@ -578,22 +762,48 @@ async function initData() {
   if (!k) { buildAll(); document.getElementById('dataInfo').textContent = '请设置API Key'; return; }
   if (!initialLoadDone) buildAll();
 
-  const allSyms = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
-  document.getElementById('dataInfo').textContent = '加载 '+allSyms.length+' 只标的...';
+  const wsSyms = [...new Set([...SEMI,...AERO,...URAN,...INSTRUMENT_ROW.map(o=>o.s)])];
+  document.getElementById('dataInfo').textContent = '加载 '+wsSyms.length+' 只标的...';
 
-  const results = await Promise.allSettled(allSyms.map(s=>fetchQuote(s)));
+  // Parallel: Finnhub REST for stocks + Yahoo for indices
+  const fhPromise = Promise.allSettled(wsSyms.map(s=>fetchQuote(s)));
+  const yhPromise = Promise.allSettled(INDEX_ROW.filter(o=>o.ys).map(o=>fetchYahooIndex(o.ys)));
+  // Also try Yahoo for TNX (10Y yield)
+  const tnxRow = INSTRUMENT_ROW.find(o=>o.s==='TNX');
+  const tnxPromise = tnxRow && tnxRow.ys ? fetchYahooIndex(tnxRow.ys) : Promise.resolve(null);
+
+  const [fhResults, yhResults] = await Promise.all([fhPromise, yhPromise]);
   let loaded = 0;
-  results.forEach((r,i)=>{
+
+  // Process Finnhub results
+  fhResults.forEach((r,i)=>{
     if (r.status==='fulfilled' && r.value && r.value.price>0) {
-      const sym = allSyms[i];
+      const sym = wsSyms[i];
       P[sym] = {price:r.value.price, prevClose:r.value.prevClose, ts:Date.now()};
       updateOne(sym, r.value);
       loaded++;
     }
   });
 
+  // Process Yahoo index results
+  const yhData = await tnxPromise;
+  yhResults.forEach((r,i)=>{
+    if (r.status==='fulfilled' && r.value && r.value.price>0) {
+      const sym = INDEX_ROW[i].s;
+      P[sym] = {price:r.value.price, prevClose:r.value.prevClose, ts:Date.now()};
+      updateOne(sym, r.value);
+      loaded++;
+    }
+  });
+  // TNX
+  if (yhData && yhData.price>0) {
+    P['TNX'] = {price:yhData.price, prevClose:yhData.prevClose, ts:Date.now()};
+    updateOne('TNX', yhData);
+    loaded++;
+  }
+
   document.getElementById('dataInfo').textContent =
-    `已加载 ${loaded}/${allSyms.length} 只 · ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+    `已加载 ${loaded} 项 · ${new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
   initialLoadDone = true;
   connectWS();
   fetchNews('finnhub');
@@ -613,7 +823,7 @@ function connectWS() {
   ws.onopen = ()=>{
     document.getElementById('wsDot').className = 'ws-dot on';
     document.getElementById('wsLabel').textContent = 'WebSocket: 实时在线';
-    const all = [...new Set([...OVERVIEW.map(o=>o.s),...SEMI,...AERO,...URAN])];
+    const all = [...new Set([...SEMI,...AERO,...URAN,...INSTRUMENT_ROW.map(o=>o.s)])];
     all.forEach(s=>ws.send(JSON.stringify({type:'subscribe',symbol:s})));
   };
   ws.onmessage = (e)=>{
@@ -639,6 +849,44 @@ function connectWS() {
 
 // ========== NEWS (MULTI-SOURCE) ==========
 let currentNewsSrc = 'finnhub';
+let cachedNewsItems = [];
+
+const IMPACT_HIGH = ['暴涨','暴跌','崩盘','熔断','突发','闪崩','闪涨','紧急','breaking','crash','surge','plunge','plummet','skyrocket','FOMC','Fed','加息','降息','CPI','PPI','NFP','非农','GDP','recession','衰退','war','战争','sanction','制裁','ban','halt','停牌','default','违约','bankruptcy','破产','nuclear','oil shock','pandemic','crisis'];
+const IMPACT_MED = ['财报','earnings','upgrade','downgrade','评级','target','收购','merger','acquisition','takeover','IPO','layoff','裁员','重组','restructuring','dividend','buyback','回购','split','拆股','guidance','指引','上调','下调','beat','miss'];
+const SECTOR_KW = {
+  semiconductor:['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SOX','半导体','芯片','chip','HBM','GPU','CPU','AI','NVIDIA','台积电','存储'],
+  aerospace:['RTX','LMT','NOC','BA','RKLB','HWM','ATI','CRS','国防','defense','航天','aerospace','space','rocket','导弹','missile','五角大楼','Pentagon','F-35','bomber'],
+  uranium:['UUUU','CCJ','UEC','DNN','NXE','URNM','uranium','铀','核能','nuclear','reactor','U3O8','铀矿'],
+  macro:['SPX','DJI','NDX','标普','道琼斯','纳斯达克','Fed','CPI','GDP','非农','NFP','FOMC','treasury','美债','bond','yield','利率','inflation']
+};
+
+function scoreImpact(headline, summary) {
+  const text = ((headline||'')+' '+(summary||'')).toLowerCase();
+  for (const kw of IMPACT_HIGH) { if (text.includes(kw.toLowerCase())) return 'high'; }
+  for (const kw of IMPACT_MED) { if (text.includes(kw.toLowerCase())) return 'medium'; }
+  return 'low';
+}
+function tagSectors(headline, summary) {
+  const text = ((headline||'')+' '+(summary||'')).toLowerCase();
+  const tags = [];
+  for (const [sec, kws] of Object.entries(SECTOR_KW)) { for (const kw of kws) { if (text.includes(kw.toLowerCase())) { tags.push(sec); break; } } }
+  return tags.length ? tags : ['general'];
+}
+const IMPACT_LABELS = {high:'高影响力',medium:'中影响力',low:''};
+const IMPACT_BADGE = {high:'<span class="impact-badge high">高影响力</span>',medium:'<span class="impact-badge medium">中影响力</span>',low:''};
+const SECTOR_LABELS = {semiconductor:'半导体',aerospace:'航天',uranium:'铀矿',macro:'大盘',general:''};
+
+function applyNewsFilter() {
+  const impactF = document.getElementById('impactFilter')?.value || 'all';
+  const sectorF = document.getElementById('sectorFilter')?.value || 'all';
+  document.querySelectorAll('#newsList .news-item').forEach(el => {
+    const imp = el.dataset.impact;
+    const sec = el.dataset.sectors || '';
+    const showI = impactF==='all' || imp===impactF;
+    const showS = sectorF==='all' || sec.includes(sectorF);
+    el.style.display = (showI && showS) ? '' : 'none';
+  });
+}
 
 async function fetchNews(src) {
   currentNewsSrc = src;
@@ -659,15 +907,20 @@ async function fetchFinnhubNews(el) {
     if (!r.ok) throw new Error('fail');
     const data = await r.json();
     if (!data?.length) { el.innerHTML='<div class="empty"><p>暂无新闻</p></div>'; return; }
-    el.innerHTML = data.slice(0,30).map(n=>{
+    cachedNewsItems = data.slice(0,30).map(n=>{
       const d = new Date(n.datetime*1000);
       const ts = d.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-      return `<a class="news-item" href="${n.url}" target="_blank">
-        <div class="ni-meta"><span class="news-source-badge finnhub">Finnhub</span>${ts} · ${n.source||''}</div>
+      const impact = scoreImpact(n.headline, n.summary);
+      const sectors = tagSectors(n.headline, n.summary);
+      const secBadge = sectors.map(s=>SECTOR_LABELS[s]?`<span class="sector-tag">${SECTOR_LABELS[s]}</span>`:'').join('');
+      return `<a class="news-item" href="${n.url}" target="_blank" data-impact="${impact}" data-sectors="${sectors.join(',')}">
+        <div class="ni-meta"><span class="news-source-badge finnhub">Finnhub</span>${IMPACT_BADGE[impact]}${secBadge}${ts} · ${n.source||''}</div>
         <div class="ni-title">${n.headline}</div>
         <div class="ni-summary">${(n.summary||'').slice(0,120)}</div>
       </a>`;
     }).join('');
+    el.innerHTML = cachedNewsItems;
+    applyNewsFilter();
   } catch(e) { el.innerHTML='<div class="empty"><p>Finnhub新闻加载失败</p></div>'; }
 }
 
@@ -686,15 +939,22 @@ async function fetchRssNews(el, src) {
     if (!r.ok) throw new Error('fail');
     const data = await r.json();
     if (!data?.items?.length) { el.innerHTML='<div class="empty"><p>暂无新闻</p></div>'; return; }
-    el.innerHTML = data.items.slice(0,30).map(n=>{
+    const items = data.items.slice(0,30).map(n=>{
       const d = new Date(n.pubDate);
       const ts = d.toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-      return `<a class="news-item" href="${n.link}" target="_blank">
-        <div class="ni-meta"><span class="news-source-badge ${badgeClass[src]}">${labels[src]}</span>${ts}</div>
+      const dsc = (n.description||'').replace(/<[^>]*>/g,'').slice(0,120);
+      const impact = scoreImpact(n.title, dsc);
+      const sectors = tagSectors(n.title, dsc);
+      const secBadge = sectors.map(s=>SECTOR_LABELS[s]?`<span class="sector-tag">${SECTOR_LABELS[s]}</span>`:'').join('');
+      return `<a class="news-item" href="${n.link}" target="_blank" data-impact="${impact}" data-sectors="${sectors.join(',')}">
+        <div class="ni-meta"><span class="news-source-badge ${badgeClass[src]}">${labels[src]}</span>${IMPACT_BADGE[impact]}${secBadge}${ts}</div>
         <div class="ni-title">${n.title}</div>
-        <div class="ni-summary">${(n.description||'').replace(/<[^>]*>/g,'').slice(0,120)}</div>
+        <div class="ni-summary">${dsc}</div>
       </a>`;
     }).join('');
+    cachedNewsItems = items;
+    el.innerHTML = items;
+    applyNewsFilter();
   } catch(e) { el.innerHTML=`<div class="empty"><p>${labels[src]}新闻加载失败，请稍后重试</p></div>`; }
 }
 
@@ -742,7 +1002,6 @@ function initFuncBar() {
         el.style.display = 'none';
       });
       if (panel === 'notes') {
-        // Show notes + news side by side
         document.querySelectorAll('.panel-notes,.panel-news').forEach(el => {
           el.style.display = '';
         });
@@ -758,6 +1017,12 @@ function initFuncBar() {
           el.style.display = '';
         });
         main.classList.add('single-col');
+      } else if (panel === 'journal') {
+        document.querySelectorAll('.panel-journal').forEach(el => {
+          el.style.display = '';
+        });
+        main.classList.add('single-col');
+        loadJournal(getTodayStr());
       }
     });
   });
@@ -785,10 +1050,137 @@ async function loadTraderNotes() {
     });
     if (data.outlook) html += '<div class="tn-dim">'+data.outlook+'</div>';
     content.innerHTML = html;
+    // Render breadth if available
+    renderBreadth(data.breadth);
   } catch(e) {
     console.warn('Trader notes load failed, using fallback:', e.message);
-    // Keep hardcoded fallback if JSON fails
   }
+}
+
+// ========== MARKET BREADTH ==========
+function renderBreadth(breadth) {
+  const grid = document.getElementById('breadthGrid');
+  const updated = document.getElementById('breadthUpdated');
+  if (!grid) return;
+  if (!breadth) {
+    grid.innerHTML = '<div class="breadth-loading">市场宽度数据需每日更新（等待cron任务推送）</div>';
+    if (updated) updated.textContent = '';
+    return;
+  }
+  if (updated) updated.textContent = '更新于 '+(breadth.updated||'--');
+  const adRatio = breadth.ad_ratio ? breadth.ad_ratio.toFixed(2) : '--';
+  const nhNlRatio = breadth.nh_nl_ratio ? breadth.nh_nl_ratio.toFixed(1) : '--';
+  const mccOsc = breadth.mcclellan_oscillator != null ? breadth.mcclellan_oscillator.toFixed(1) : '--';
+  const upVol = breadth.up_volume_ratio ? (breadth.up_volume_ratio*100).toFixed(0)+'%' : '--';
+  const items = [
+    {l:'涨跌比',v:adRatio,s:(breadth.ad_ratio||0)>1?'breadth-bullish':'breadth-bearish',sub:(breadth.advance||'?')+'涨 / '+(breadth.decline||'?')+'跌'},
+    {l:'52周新高/新低',v:nhNlRatio,s:(breadth.nh_nl_ratio||0)>1?'breadth-bullish':'breadth-bearish',sub:'新高'+(breadth.new_highs_52w||'?')+' / 新低'+(breadth.new_lows_52w||'?')},
+    {l:'McClellan振荡器',v:mccOsc,s:(breadth.mcclellan_oscillator||0)>0?'breadth-bullish':'breadth-bearish',sub:(breadth.mcclellan_sum_index||'')},
+    {l:'上涨成交量占比',v:upVol,s:(breadth.up_volume_ratio||0)>0.5?'breadth-bullish':'breadth-bearish',sub:''}
+  ];
+  grid.innerHTML = items.map(i=>`
+    <div class="breadth-item">
+      <div class="br-label">${i.l}</div>
+      <div class="br-value ${i.s}">${i.v}</div>
+      ${i.sub?`<div class="br-sub">${i.sub}</div>`:''}
+    </div>`).join('');
+}
+
+// ========== TRADING JOURNAL ==========
+function getTodayStr() { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function jnKey(dateStr, section) { return 'tj_'+dateStr+'_'+section; }
+
+function loadJournal(dateStr) {
+  const d = dateStr || getTodayStr();
+  document.getElementById('journalDatePicker').value = d;
+  document.getElementById('jnThesis').value = localStorage.getItem(jnKey(d, 'thesis')) || '';
+  document.getElementById('jnPsychology').value = localStorage.getItem(jnKey(d, 'psychology')) || '';
+  renderTradeTable(d);
+  renderPositions(d);
+  loadAttribution(d);
+  updateJournalMeta(d);
+}
+function saveJournalSection(section, value) {
+  const d = document.getElementById('journalDatePicker').value || getTodayStr();
+  localStorage.setItem(jnKey(d, section), value);
+  updateJournalMeta(d);
+}
+function updateJournalMeta(d) {
+  const trades = JSON.parse(localStorage.getItem(jnKey(d, 'trades')) || '[]');
+  const thesis = localStorage.getItem(jnKey(d, 'thesis')) || '';
+  const el = document.getElementById('journalMeta');
+  if (el) el.textContent = trades.length ? `· ${trades.length} 笔交易` : thesis ? '· 已记录剧本' : '';
+}
+
+// -- Trades --
+function addTrade() {
+  const d = document.getElementById('journalDatePicker').value || getTodayStr();
+  const sym = document.getElementById('jnTradeSymbol').value.trim().toUpperCase();
+  const action = document.getElementById('jnTradeAction').value;
+  const qty = document.getElementById('jnTradeQty').value;
+  const price = document.getElementById('jnTradePrice').value;
+  const reason = document.getElementById('jnTradeReason').value.trim();
+  if (!sym || !qty || !price) return;
+  const trades = JSON.parse(localStorage.getItem(jnKey(d, 'trades')) || '[]');
+  trades.push({time: new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}), symbol:sym, action:action==='buy'?'买':'卖', qty:qty, price:parseFloat(price).toFixed(2), reason:reason, id:Date.now()});
+  localStorage.setItem(jnKey(d, 'trades'), JSON.stringify(trades));
+  renderTradeTable(d);
+  ['jnTradeSymbol','jnTradeQty','jnTradePrice','jnTradeReason'].forEach(id=>document.getElementById(id).value='');
+  updateJournalMeta(d);
+}
+function deleteTrade(dateStr, tradeId) {
+  const trades = JSON.parse(localStorage.getItem(jnKey(dateStr, 'trades')) || '[]');
+  localStorage.setItem(jnKey(dateStr, 'trades'), JSON.stringify(trades.filter(t=>t.id!==tradeId)));
+  renderTradeTable(dateStr);
+  updateJournalMeta(dateStr);
+}
+function renderTradeTable(dateStr) {
+  const trades = JSON.parse(localStorage.getItem(jnKey(dateStr, 'trades')) || '[]');
+  document.getElementById('jnTradeTable').querySelector('tbody').innerHTML = trades.map(t=>`
+    <tr>
+      <td>${t.time}</td><td class="ticker">${t.symbol}</td>
+      <td><span class="jn-badge ${t.action==='买'?'buy':'sell'}">${t.action}</span></td>
+      <td>${t.qty}</td><td class="rt">$${t.price}</td>
+      <td>${t.reason}</td>
+      <td><span class="jn-del" onclick="deleteTrade('${dateStr}',${t.id})">×</span></td>
+    </tr>`).join('');
+}
+
+// -- Positions --
+function addPosition() {
+  const d = document.getElementById('journalDatePicker').value || getTodayStr();
+  const sym = document.getElementById('jnPosSymbol').value.trim().toUpperCase();
+  const before = document.getElementById('jnPosBefore').value.trim();
+  const after = document.getElementById('jnPosAfter').value.trim();
+  if (!sym) return;
+  const positions = JSON.parse(localStorage.getItem(jnKey(d, 'positions')) || '[]');
+  positions.push({symbol:sym, before:before, after:after, id:Date.now()});
+  localStorage.setItem(jnKey(d, 'positions'), JSON.stringify(positions));
+  renderPositions(d);
+  ['jnPosSymbol','jnPosBefore','jnPosAfter'].forEach(id=>document.getElementById(id).value='');
+}
+function deletePosition(dateStr, posId) {
+  const positions = JSON.parse(localStorage.getItem(jnKey(dateStr, 'positions')) || '[]');
+  localStorage.setItem(jnKey(dateStr, 'positions'), JSON.stringify(positions.filter(p=>p.id!==posId)));
+  renderPositions(dateStr);
+}
+function renderPositions(dateStr) {
+  const positions = JSON.parse(localStorage.getItem(jnKey(dateStr, 'positions')) || '[]');
+  document.getElementById('jnPositionsList').innerHTML = positions.length ? positions.map(p=>
+    `<span style="display:inline-block;margin:2px 6px;background:var(--card);padding:3px 8px;border-radius:4px">${p.symbol}: ${p.before||'?'}% → ${p.after||'?'}% <span class="jn-del" onclick="deletePosition('${dateStr}',${p.id})">×</span></span>`
+  ).join('') : '<span style="color:var(--muted);font-size:11px">暂无仓位记录</span>';
+}
+
+// -- Attribution --
+function saveAttribution() {
+  const d = document.getElementById('journalDatePicker').value || getTodayStr();
+  const attrib = {};
+  document.querySelectorAll('[data-attrib]').forEach(el=>{ attrib[el.dataset.attrib] = el.checked; });
+  localStorage.setItem(jnKey(d, 'attribution'), JSON.stringify(attrib));
+}
+function loadAttribution(dateStr) {
+  const attrib = JSON.parse(localStorage.getItem(jnKey(dateStr, 'attribution')) || '{}');
+  document.querySelectorAll('[data-attrib]').forEach(el=>{ el.checked = !!attrib[el.dataset.attrib]; });
 }
 
 // ========== TICKER TAPE ==========

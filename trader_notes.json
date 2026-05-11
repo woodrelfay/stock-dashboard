@@ -35,5 +35,17 @@
     }
   ],
   "outlook": "周末风险：伊朗答复MOU（谈崩→油价跳涨+国防脉冲 / 签协议→油价跌破$90+航运受益）。下周CPI(5/13)+AMAT财报(5/14)。策略：半仓+保留弹药，等周一回调2-3%再布局存储芯片和铀矿。",
+  "breadth": {
+    "advance": 2145,
+    "decline": 1280,
+    "ad_ratio": 1.68,
+    "new_highs_52w": 187,
+    "new_lows_52w": 24,
+    "nh_nl_ratio": 7.79,
+    "mcclellan_oscillator": 42.5,
+    "mcclellan_sum_index": 385.2,
+    "up_volume_ratio": 0.71,
+    "updated": "2026-05-08T21:00:00Z"
+  },
   "updated": "2026-05-09T10:03:00+08:00"
 }
