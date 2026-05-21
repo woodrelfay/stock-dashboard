@@ -413,6 +413,19 @@ table.w .price{font-weight:600;transition:color 0.4s}
       </div>
     </div>
 
+    <!-- Photonics / Optical Communications -->
+    <div class="card panel-notes">
+      <div class="card-header"><span class="dot" style="background:var(--purple)"></span>光子学 · 光通信</div>
+      <div class="card-body" style="padding:0">
+        <div class="scroll-tbl">
+        <table class="w" id="photonTable">
+          <thead><tr><th>代码</th><th>名称</th><th class="rt">价格</th><th class="rt">涨跌</th><th class="rt">涨跌幅</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+
     <!-- ★★★★★ 我的交易 (NEW V6) ★★★★★ -->
     <div class="card panel-journal" style="display:none" id="journalCard">
       <div class="card-header">
@@ -535,6 +548,9 @@ table.w .price{font-weight:600;transition:color 0.4s}
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=TVC:GOLD" target="_blank">黄金</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:CCJ" target="_blank">CCJ 卡梅科</a>
           <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:HWM" target="_blank">HWM 豪迈航空</a>
+          <a class="chip hl" href="https://www.tradingview.com/chart/?symbol=NASDAQ:LITE" target="_blank">LITE 光通信</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NYSE:CIEN" target="_blank">CIEN Ciena</a>
+          <a class="chip" href="https://www.tradingview.com/chart/?symbol=NASDAQ:AAOI" target="_blank">AAOI 应用光电</a>
         </div>
       </div>
     </div>
@@ -599,6 +615,7 @@ const INSTRUMENT_ROW = [
 const SEMI = ['NVDA','AMD','INTC','QCOM','MU','AMAT','ASML','TSM','ARM','SMH'];
 const AERO = ['RTX','LMT','NOC','BA','RKLB','HWM','ATI','CRS','TROX','CC'];
 const URAN = ['UUUU','CCJ','UEC','DNN','NXE','URNM'];
+const PHOTON = ['LITE','CIEN','AAOI','COHR','POET','LWLG','VIAV'];
 
 const NAMES = {
   NVDA:'英伟达',AMD:'超威半导体',INTC:'英特尔',QCOM:'高通',MU:'美光科技',
@@ -606,6 +623,7 @@ const NAMES = {
   RTX:'雷神技术',LMT:'洛克希德马丁',NOC:'诺斯罗普格鲁曼',BA:'波音',RKLB:'火箭实验室',
   HWM:'豪迈航空',ATI:'ATI特种金属',CRS:'Carpenter科技',TROX:'Tronox',CC:'Chemours',
   UUUU:'能源燃料',CCJ:'卡梅科',UEC:'铀能公司',DNN:'Denison矿业',NXE:'NexGen能源',URNM:'铀矿ETF',
+  LITE:'Lumentum',CIEN:'Ciena',AAOI:'应用光电',COHR:'Coherent',POET:'POET科技',LWLG:'Lightwave Logic',VIAV:'Viavi',
   USO:'WTI原油',GLD:'黄金'
 };
 
@@ -680,7 +698,7 @@ function buildAll() {
       <div class="ov-change"></div>
     </div>`).join('');
 
-  [['semiTable',SEMI],['aeroTable',AERO],['uranTable',URAN]].forEach(([id,syms])=>{
+  [['semiTable',SEMI],['aeroTable',AERO],['uranTable',URAN],['photonTable',PHOTON]].forEach(([id,syms])=>{
     document.getElementById(id).querySelector('tbody').innerHTML = syms.map(s=>`
       <tr data-sym="${s}">
         <td class="ticker">${s}</td>
@@ -767,7 +785,7 @@ async function initData() {
   if (!k) { buildAll(); document.getElementById('dataInfo').textContent = '请设置API Key'; return; }
   if (!initialLoadDone) buildAll();
 
-  const wsSyms = [...new Set([...SEMI,...AERO,...URAN])];
+  const wsSyms = [...new Set([...SEMI,...AERO,...URAN,...PHOTON])];
   document.getElementById('dataInfo').textContent = '加载中...';
 
   // Parallel: Finnhub REST for stocks + Yahoo for indices & commodities
@@ -829,7 +847,7 @@ function connectWS() {
   ws.onopen = ()=>{
     document.getElementById('wsDot').className = 'ws-dot on';
     document.getElementById('wsLabel').textContent = 'WebSocket: 实时在线';
-    const all = [...new Set([...SEMI,...AERO,...URAN])];
+    const all = [...new Set([...SEMI,...AERO,...URAN,...PHOTON])];
     all.forEach(s=>ws.send(JSON.stringify({type:'subscribe',symbol:s})));
   };
   ws.onmessage = (e)=>{
@@ -1205,7 +1223,7 @@ function loadAttribution(dateStr) {
     {proName:'NYSE:ATI',title:'ATI'},{proName:'NYSE:CRS',title:'Carpenter'},
     {proName:'AMEX:UUUU',title:'能源燃料'},{proName:'NYSE:CCJ',title:'卡梅科'},
     {proName:'AMEX:UEC',title:'铀能'},{proName:'AMEX:DNN',title:'Denison'},
-    {proName:'NYSE:NXE',title:'NexGen'},{proName:'TVC:USOIL',title:'原油'},
+    {proName:'NYSE:NXE',title:'NexGen'},{proName:'NASDAQ:LITE',title:'Lumentum'},{proName:'NYSE:CIEN',title:'Ciena'},{proName:'NASDAQ:AAOI',title:'应用光电'},{proName:'NASDAQ:LWLG',title:'Lightwave'},{proName:'TVC:USOIL',title:'原油'},
     {proName:'TVC:GOLD',title:'黄金'},{proName:'TVC:US10Y',title:'10Y美债'}
   ];
   const s = document.createElement('script');
