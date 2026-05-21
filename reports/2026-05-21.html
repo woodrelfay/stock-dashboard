@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<title>美股日报 2026-05-21 | NVDA $81.6B Beat + 伊朗和平曙光</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="美股日报 2026-05-21">
+<meta property="og:description" content="NVDA $81.6B史诗级Beat + 伊朗和平曙光 | 道指+645重返50,000">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  max-width:1600px;margin:0 auto;
+  font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#080c12;color:#c8d1d9;font-size:11.5px;line-height:1.4;
+  padding:12px 16px;
+}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}
+.c-r{color:#f85149}.c-g{color:#3fb950}.c-a{color:#d2991d}.c-b{color:#58a6ff}.c-p{color:#a371f7}.c-o{color:#f0883e}
+
+/* ===== HEADER ===== */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;margin-bottom:8px;
+  background:linear-gradient(90deg,#111820,#0f1419,#111820);
+  border-bottom:2px solid #2a3f5f;border-radius:4px;
+}
+.header h1{font-size:22px;color:#e6edf3;letter-spacing:2px}
+.header .d{font-size:12px;color:#6b7685}
+.header .s{font-size:12px;color:#4a90d9;text-align:right;line-height:1.3;max-width:520px}
+
+/* ===== GRID SYSTEM ===== */
+.row{display:flex;gap:8px;margin-bottom:8px}
+.col{flex:1;min-width:0}
+.col-2{flex:2}.col-3{flex:3}.col-15{flex:1.5}.col-08{flex:0.8}
+
+/* ===== CARDS ===== */
+.card{
+  background:#0f1419;border:1px solid #1e2936;border-radius:5px;overflow:hidden;
+}
+.card-hd{
+  padding:5px 10px;font-size:10.5px;font-weight:700;color:#e6edf3;
+  border-bottom:1px solid #1e2936;
+  display:flex;align-items:center;gap:6px;
+}
+.card-hd .dot{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+.card-hd .st{font-size:9px;color:#6e7681;margin-left:auto;font-weight:400}
+.card-bd{padding:6px 10px}
+
+table.w{width:100%;border-collapse:collapse;font-size:10px}
+table.w th{background:#0c1117;color:#484f58;text-align:left;padding:3px 6px;font-weight:500;font-size:8px;border-bottom:1px solid #1e2936}
+table.w td{padding:3px 6px;border-bottom:1px solid rgba(255,255,255,0.02);color:#8b949e}
+table.w .tk{color:#58a6ff;font-weight:600;font-size:10px}
+table.w .pr{color:#c9d1d9;font-weight:500;text-align:right}
+table.w .ch{text-align:right;font-weight:500;font-size:10px}
+table.w .nt{font-size:8px;color:#484f58;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ===== INDEX MINI CARDS ===== */
+.ix-row{display:flex;gap:6px}
+.ix{flex:1;background:#0f1419;border:1px solid #1e2936;border-radius:4px;padding:6px 8px;text-align:center}
+.ix .n{font-size:8px;color:#6e7681;margin-bottom:1px}
+.ix .p{font-size:14px;font-weight:700;color:#e6edf3}
+.ix .c{font-size:9px;margin-top:1px;font-weight:500}
+
+/* ===== METRIC STRIP ===== */
+.m-row{display:flex;gap:6px}
+.m{flex:1;background:#0f1419;border:1px solid #1e2936;border-radius:4px;padding:6px 8px;text-align:center}
+.m .v{font-size:16px;font-weight:700}
+.m .l{font-size:7.5px;color:#6e7681;margin-top:1px;text-transform:uppercase;letter-spacing:0.3px}
+.m.hl{border-color:rgba(240,136,62,0.25);background:linear-gradient(180deg,rgba(240,136,62,0.05),rgba(240,136,62,0.01))}
+
+/* ===== ANALYSIS CARD ===== */
+.ac{
+  background:#0f1419;border:1px solid #1e2936;border-radius:5px;
+  padding:8px 12px;font-size:10px;line-height:1.5;
+}
+.ac .t{font-size:10.5px;font-weight:700;color:#e6edf3;margin-bottom:4px;padding-left:8px;border-left:3px solid}
+.ac .b{color:#8b949e}
+.ac .b strong{color:#c9d1d9}
+
+/* ===== TRADER NOTE ===== */
+.tn{
+  font-size:10px;color:#f0883e;line-height:1.5;padding:8px 12px;
+  background:rgba(240,136,62,0.04);border-left:3px solid #f0883e;border-radius:0 4px 4px 0;
+}
+.tn strong{color:#f0883e}
+
+/* ===== TAGS ===== */
+.tg{padding:1px 5px;border-radius:2px;font-size:7.5px;font-weight:600;white-space:nowrap}
+.tg-up{background:rgba(248,81,73,0.15);color:#f85149}
+.tg-dn{background:rgba(63,185,80,0.15);color:#3fb950}
+.tg-hl{background:rgba(210,153,29,0.15);color:#d2991d}
+.tg-bl{background:rgba(88,166,255,0.15);color:#58a6ff}
+
+.footer{text-align:center;font-size:9px;color:#30363d;padding-top:8px;margin-top:8px;border-top:1px solid rgba(255,255,255,0.03)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div><h1>美股日报</h1><div class="d">2026年05月21日 · 交易日:5月20日(周三)</div></div>
+  <div class="s">NVDA $81.6B史诗级Beat + $91B Q2指引 + $800亿回购<br>伊朗和平曙光→油价-5.5% | 道指+645重返50,000 | SOX+4.5%</div>
+</div>
+
+<!-- ROW 1: INDEX + KEY METRICS -->
+<div class="row">
+  <div class="col-2" style="display:flex;flex-direction:column;gap:8px">
+    <div class="ix-row">
+      <div class="ix" style="border-left:3px solid #f85149"><div class="n">道琼斯</div><div class="p">50,009.35</div><div class="c up">+645.47 (+1.31%)</div></div>
+      <div class="ix" style="border-left:3px solid #58a6ff"><div class="n">标普500</div><div class="p">7,432.97</div><div class="c up">+79.36 (+1.08%)</div></div>
+      <div class="ix" style="border-left:3px solid #3fb950"><div class="n">纳斯达克</div><div class="p">26,269.00</div><div class="c up">+398.29 (+1.54%)</div></div>
+      <div class="ix" style="border-left:3px solid #d2991d"><div class="n">费城半导体</div><div class="p">~11,810</div><div class="c up">+4.50%</div></div>
+      <div class="ix" style="border-left:3px solid #a371f7"><div class="n">罗素2000</div><div class="p">~2,845</div><div class="c up">+2.60%</div></div>
+    </div>
+    <div class="m-row">
+      <div class="m hl"><div class="v c-g">$81.62B</div><div class="l">NVDA Q1营收</div></div>
+      <div class="m hl"><div class="v c-g">$91.0B</div><div class="l">NVDA Q2指引</div></div>
+      <div class="m"><div class="v c-r">$100.00</div><div class="l">WTI -5.5%</div></div>
+      <div class="m"><div class="v c-b">4.64%</div><div class="l">10Y美债 -3bp</div></div>
+      <div class="m"><div class="v c-a">17.20</div><div class="l">VIX -6.8%</div></div>
+      <div class="m"><div class="v c-p">$800亿</div><div class="l">NVDA回购</div></div>
+      <div class="m"><div class="v c-o">8-4</div><div class="l">Fed分裂投票</div></div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="ac" style="border-color:rgba(240,136,62,0.2);background:rgba(240,136,62,0.03)">
+      <div class="t" style="border-color:#f0883e">核心驱动:三大利好同时爆发——2026年最好交易日之一</div>
+      <div class="b">
+        <strong style="color:#f0883e">伊朗和平曙光:</strong>巴基斯坦提交修订版和谈方案→特朗普"认真考虑"→霍尔木兹6-8周内可能通航→WTI从$108+暴跌至$100(-5.5%)。2026年最大上行期权正在成形。<br>
+        <strong style="color:#58a6ff">NVDA $81.6B史诗级Beat:</strong>Q1营收$81.62B(+85%YoY)超$78.75B | EPS$1.87超$1.76 | 数据中心$75.2B(+86%YoY) | Q2指引$91B远超$87B共识 | $800亿回购+股息25x。盘后-2~3%→"买预期卖事实",但$220对应PE~20x。<br>
+        <strong style="color:#d2991d">Fed 8-4分裂:</strong>Powell任内20年最分裂投票,3人要求删除宽松倾向。鹰派但已定价。30Y从5.19%回落至5.16%。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: 4 SECTOR TABLES -->
+<div class="row">
+  <!-- SEMI -->
+  <div class="col">
+    <div class="card">
+      <div class="card-hd"><span class="dot" style="background:#f85149"></span>半导体<span class="st">SOX +4.5% 5月最大涨幅</span></div>
+      <div class="card-bd" style="padding:0">
+        <table class="w">
+        <tr><th>代码</th><th>收盘</th><th>涨跌</th><th>备注</th></tr>
+        <tr><td class="tk">AMD</td><td class="pr">$414.05</td><td class="ch up">+8.10%</td><td class="nt">领涨AI产业链</td></tr>
+        <tr><td class="tk">INTC</td><td class="pr">$110.80</td><td class="ch up">+7.40%</td><td class="nt">Citi上调目标</td></tr>
+        <tr><td class="tk">MU</td><td class="pr">$698.74</td><td class="ch up">+2.52%</td><td class="nt">HBM需求持续</td></tr>
+        <tr><td class="tk">TSM</td><td class="pr">$401.62</td><td class="ch up">+2.29%</td><td class="nt">VP内幕买入信号</td></tr>
+        <tr><td class="tk">NVDA</td><td class="pr">$220.61</td><td class="ch down">-0.77%</td><td class="nt">盘后$81.6B!</td></tr>
+        <tr><td class="tk">AMAT</td><td class="pr">$406.91</td><td class="ch down">-1.61%</td><td class="nt">MS降级余波</td></tr>
+        <tr><td class="tk">AVGO</td><td class="pr">$411.07</td><td class="ch down">-2.29%</td><td class="nt">跟随QCOM回调</td></tr>
+        <tr><td class="tk">QCOM</td><td class="pr">$195.61</td><td class="ch down">-3.94%</td><td class="nt">跌破$200承压</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- AERO -->
+  <div class="col-08">
+    <div class="card">
+      <div class="card-hd"><span class="dot" style="background:#58a6ff"></span>航天国防<span class="st">和谈→"战争溢价"挤出</span></div>
+      <div class="card-bd" style="padding:0">
+        <table class="w">
+        <tr><th>代码</th><th>收盘</th><th>涨跌</th><th>备注</th></tr>
+        <tr><td class="tk">RKLB</td><td class="pr">$132.00</td><td class="ch up">+0.64%</td><td class="nt">SpaceX IPO独立行情</td></tr>
+        <tr><td class="tk">NOC</td><td class="pr">$540.00</td><td class="ch down">-1.82%</td><td class="nt">和谈压制</td></tr>
+        <tr><td class="tk">LMT</td><td class="pr">$508.00</td><td class="ch down">-1.55%</td><td class="nt">-27% ATH超跌</td></tr>
+        <tr><td class="tk">BA</td><td class="pr">$215.00</td><td class="ch down">-2.54%</td><td class="nt">和平利空</td></tr>
+        <tr><td class="tk">RTX</td><td class="pr">$166.00</td><td class="ch down">-3.03%</td><td class="nt">战争溢价回吐</td></tr>
+        </table>
+        <div style="padding:5px 8px;font-size:9px;color:#f0883e;border-top:1px solid #1e2936">
+        FY2026国防预算$1.05T已立法。LMT$508(-27%ATH)→防御底仓机会。
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- URANIUM -->
+  <div class="col-08">
+    <div class="card">
+      <div class="card-hd"><span class="dot" style="background:#3fb950"></span>铀矿核能<span class="st">超跌反弹开启</span></div>
+      <div class="card-bd" style="padding:0">
+        <table class="w">
+        <tr><th>代码</th><th>收盘</th><th>涨跌</th><th>备注</th></tr>
+        <tr><td class="tk">UEC</td><td class="pr">$12.75</td><td class="ch up">+7.05%</td><td class="nt">领涨空头回补</td></tr>
+        <tr><td class="tk">UUUU</td><td class="pr">$16.78</td><td class="ch up">+3.71%</td><td class="nt">目标$29</td></tr>
+        <tr><td class="tk">CCJ</td><td class="pr">$104.02</td><td class="ch up">+0.48%</td><td class="nt">温和跟涨</td></tr>
+        </table>
+        <div style="padding:5px 8px;font-size:9px;color:#8b949e;border-top:1px solid #1e2936;line-height:1.4">
+        铀现货$86.55/lb · 供需缺口30M+ lbs<br>NVDA$91B→AI电力需求确认<br><span class="c-g">$12-13(UEC)分批低吸区间</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- PHOTONICS -->
+  <div class="col">
+    <div class="card">
+      <div class="card-hd"><span class="dot" style="background:#a371f7"></span>光子学·光通信<span class="st">800G→1.6T升级周期</span></div>
+      <div class="card-bd" style="padding:0">
+        <table class="w">
+        <tr><th>代码</th><th>收盘</th><th>涨跌</th><th>备注</th></tr>
+        <tr><td class="tk">LITE</td><td class="pr">$48.50</td><td class="ch up">+2.15%</td><td class="nt">产能锁定至2028</td></tr>
+        <tr><td class="tk">CIEN</td><td class="pr">$52.30</td><td class="ch up">+1.08%</td><td class="nt">800G骨干网升级</td></tr>
+        <tr><td class="tk">AAOI</td><td class="pr">$32.15</td><td class="ch down">-1.53%</td><td class="nt">ATH回撤26%</td></tr>
+        <tr><td class="tk">COHR</td><td class="pr">$72.80</td><td class="ch down">-0.95%</td><td class="nt">激光龙头</td></tr>
+        <tr><td class="tk">POET</td><td class="pr">$13.96</td><td class="ch down">-8.10%</td><td class="nt">CPO高风险</td></tr>
+        <tr><td class="tk">LWLG</td><td class="pr">$11.69</td><td class="ch up">+0.86%</td><td class="nt">聚合物调制器</td></tr>
+        <tr><td class="tk">VIAV</td><td class="pr">$46.85</td><td class="ch down">-4.84%</td><td class="nt">公开发行定价</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3: TRADER NOTES + OUTLOOK + STRATEGY -->
+<div class="row">
+  <div class="col-2">
+    <div class="tn">
+      <strong>交易员笔记</strong> 今天是2026年最好的交易日之一。但关键问题:盘后NVDA-2~3%意味着什么?数据$81.6B完美,但$91B指引对某些人"还不够惊艳"。<strong>周四决定方向:</strong>若盘后跌幅被收复→SOX冲12,000+。若弱势延续→"利好出尽"确认→SOX可能回11,500。<br>
+      <strong>策略:</strong>NVDA$215-220建仓/加仓(远期PE~20x),LMT$490-510/NOC$520-540防御底仓,铀矿$12-13(UEC)分批低吸,光子学≤10%。保留20-30%现金等待伊朗和谈结果——这是比NVDA更大的上行催化剂。
+    </div>
+  </div>
+  <div class="col">
+    <div class="ac" style="border-color:rgba(163,113,247,0.2)">
+      <div class="t" style="border-color:#a371f7">后市展望</div>
+      <div class="b">
+        <table style="width:100%;font-size:9px;border-collapse:collapse;margin-bottom:4px">
+        <tr style="color:#6e7681"><th style="text-align:left;padding:1px 3px">日期</th><th style="text-align:left;padding:1px 3px">事件</th><th style="text-align:right;padding:1px 3px">重要性</th></tr>
+        <tr><td style="padding:1px 3px">5/21</td><td style="padding:1px 3px">NVDA财报后首个交易日</td><td style="text-align:right;padding:1px 3px" class="c-r">★★★★★</td></tr>
+        <tr><td style="padding:1px 3px">5/21</td><td style="padding:1px 3px">S&P PMI初值</td><td style="text-align:right;padding:1px 3px" class="c-a">★★★★</td></tr>
+        <tr><td style="padding:1px 3px">本周</td><td style="padding:1px 3px">伊朗和谈进展</td><td style="text-align:right;padding:1px 3px" class="c-o">★★★★★</td></tr>
+        <tr><td style="padding:1px 3px">6/12</td><td style="padding:1px 3px">SpaceX IPO定价 $2万亿估值</td><td style="text-align:right;padding:1px 3px" class="c-b">★★★★★</td></tr>
+        </table>
+        <span style="color:#c9d1d9">NVDA周四路径:</span>
+        <span class="c-r">买盘35%→SOX 12,000+</span> |
+        横盘40%→11,600-11,900 |
+        <span class="c-g">出尽25%→11,300-11,500</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="ac" style="border-color:rgba(210,153,29,0.2);background:rgba(210,153,29,0.03)">
+      <div class="t" style="border-color:#d2991d">全盘策略信号</div>
+      <div class="b" style="font-size:9px;line-height:1.55">
+        <strong>情绪:</strong>从"三重暴击"到"完美日",但盘后NVDA-2%提醒预期已远。<br>
+        <strong>资金:</strong>全面risk-on(科技+小盘+能源齐涨)。周四可能从AI流向价值。<br>
+        <strong>风险:</strong>NVDA延续弱势→SOX回11,500 | 和谈破裂→油价$110+ | PMI加速→30Y重测5.2%。<br>
+        <strong>操作:</strong>NVDA$215-220加仓 · LMT$500-510防御底仓 · 铀矿$12-13分批吸 · 光子学≤10% · 保留20-30%现金等和谈。
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  本报告为个人市场分析记录，不构成投资建议。&nbsp;·&nbsp;数据来源: Yahoo Finance · 新浪财经 · 东方财富 · Bloomberg · MarketWatch · CNBC
+</div>
+
+</body>
+</html>
