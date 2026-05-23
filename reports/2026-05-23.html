@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美股日报 2026-05-23 | 沃什就任+SOX首破12,000+QCOM +12%</title>
+<meta property="og:title" content="美股日报 2026-05-23">
+<meta property="og:description" content="沃什宣誓就任美联储主席 | SOX首破12,000创历史新高 | QCOM+12%引爆移动芯片复兴 | 伊朗「略有进展」油价暴跌5%">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  max-width:780px;margin:0 auto;
+  font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+  background:#0a0e14;color:#c8d1d9;font-size:13px;line-height:1.6;
+  padding:28px 32px 36px;
+}
+.up{color:#f85149;font-weight:600}.down{color:#3fb950;font-weight:600}
+
+.header{
+  text-align:center;padding:20px 0 16px;
+  border-bottom:2px solid #2a3f5f;margin-bottom:24px;
+}
+.header .tag{font-size:11px;color:#f0883e;letter-spacing:3px;margin-bottom:4px;text-transform:uppercase}
+.header h1{font-size:26px;color:#e6edf3;letter-spacing:1px;margin-bottom:6px}
+.header .date{font-size:12px;color:#6b7685;margin-bottom:4px}
+.header .sub{font-size:13px;color:#4a90d9;line-height:1.5;margin-top:8px}
+
+.sec{margin-bottom:28px}
+.sec-title{
+  font-size:15px;font-weight:700;color:#e6edf3;margin-bottom:12px;
+  padding:6px 0 6px 12px;border-left:3px solid;
+}
+.sec-title.red{border-color:#f85149}.sec-title.blue{border-color:#58a6ff}
+.sec-title.green{border-color:#3fb950}.sec-title.orange{border-color:#d2991d}
+.sec-title.purple{border-color:#a371f7}
+
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0 14px}
+th{background:#141b24;color:#6e7681;text-align:left;padding:6px 10px;font-weight:500;font-size:10px;border-bottom:1px solid #1e2936;letter-spacing:0.5px}
+td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,0.03);color:#8b949e}
+.tk{color:#58a6ff;font-weight:600;font-size:11px}
+.pr{color:#c9d1d9;font-weight:500}
+
+.metrics{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.m-card{
+  flex:1;min-width:110px;background:#0f1419;
+  border:1px solid #1e2936;border-radius:5px;padding:10px 12px;text-align:center;
+}
+.m-card .v{font-size:18px;font-weight:700}
+.m-card .l{font-size:9px;color:#6e7681;margin-top:2px;text-transform:uppercase;letter-spacing:0.3px}
+.m-card.hl{border-color:rgba(240,136,62,0.3);background:rgba(240,136,62,0.04)}
+
+.idx-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.idx{
+  flex:1;min-width:140px;background:#0f1419;border:1px solid #1e2936;
+  border-radius:5px;padding:8px 10px;text-align:center;
+}
+.idx .n{font-size:9px;color:#6e7681;margin-bottom:2px}
+.idx .p{font-size:16px;font-weight:700;color:#e6edf3}
+.idx .c{font-size:10px;margin-top:2px;font-weight:500}
+
+.box{
+  background:#0f1419;border:1px solid #1e2936;
+  border-radius:6px;padding:12px 16px;margin:10px 0;font-size:12px;line-height:1.65;
+}
+.box-title{font-size:11px;color:#6e7681;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+.box strong{color:#c9d1d9}
+
+.tn{
+  background:rgba(240,136,62,0.05);border-left:3px solid #f0883e;
+  padding:12px 16px;margin:12px 0;font-size:12px;color:#f0883e;line-height:1.7;
+  border-radius:0 6px 6px 0;
+}
+.tn strong{color:#f0883e}
+.tn-label{font-weight:700;display:block;margin-bottom:6px;font-size:13px}
+
+.tg{padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;white-space:nowrap}
+.tg-up{background:rgba(248,81,73,0.15);color:#f85149}
+.tg-dn{background:rgba(63,185,80,0.15);color:#3fb950}
+.tg-hl{background:rgba(210,153,29,0.15);color:#d2991d}
+.tg-bl{background:rgba(88,166,255,0.15);color:#58a6ff}
+
+.chain{
+  display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+  font-size:10px;color:#6e7681;margin:6px 0;
+}
+.chain .ar{color:#f0883e;font-weight:bold}
+.chain .nd{background:#141b24;padding:3px 10px;border-radius:12px;color:#8b949e;white-space:nowrap}
+
+.footer{
+  text-align:center;font-size:10px;color:#30363d;
+  padding-top:16px;margin-top:24px;border-top:1px solid rgba(255,255,255,0.04);
+  line-height:1.8;
+}
+
+@media(max-width:600px){
+  body{padding:16px 12px 24px}
+  .header h1{font-size:20px}
+  .idx-row{gap:4px}
+  .idx{min-width:70px;padding:6px}
+  .idx .p{font-size:13px}
+  .metrics{gap:4px}
+  .m-card{min-width:70px;padding:6px 8px}
+  .m-card .v{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="tag">U.S. STOCK DAILY</div>
+  <h1>美股日报</h1>
+  <div class="date">2026年05月23日 · 交易日 2026年5月22日（周五）</div>
+  <div class="sub">沃什宣誓就任第17任美联储主席 | 伊朗和谈「略有进展」油价暴跌5%<br>SOX突破12,000创历史新高 | QCOM +12%引爆移动芯片复兴 | 道指连续第二日刷新纪录</div>
+</div>
+
+<div class="sec">
+  <div class="sec-title red">一、大盘速览 — 沃什宣誓+伊朗「略有进展」，道指+294再创新高，SOX首次站上12,000</div>
+  <div class="idx-row">
+    <div class="idx" style="border-top:3px solid #f85149">
+      <div class="n">道琼斯</div><div class="p">50,579.70</div><div class="c up">+294.04 (+0.58%) <span class="tg tg-up">历史新高</span></div>
+    </div>
+    <div class="idx" style="border-top:3px solid #58a6ff">
+      <div class="n">标普500</div><div class="p">7,473.47</div><div class="c up">+27.75 (+0.37%)</div>
+    </div>
+    <div class="idx" style="border-top:3px solid #3fb950">
+      <div class="n">纳斯达克</div><div class="p">26,343.97</div><div class="c up">+50.87 (+0.19%)</div>
+    </div>
+    <div class="idx" style="border-top:3px solid #d2991d">
+      <div class="n">费城半导体 SOX</div><div class="p">12,202.54</div><div class="c up">+238.46 (+1.99%) <span class="tg tg-up">首破12,000</span></div>
+    </div>
+  </div>
+  <div class="metrics">
+    <div class="m-card hl"><div class="v" style="color:#58a6ff">$238.16</div><div class="l">QCOM +11.6% 引爆移动芯片</div></div>
+    <div class="m-card hl"><div class="v" style="color:#f0883e">$96.60</div><div class="l">WTI 原油 -5.3% 单日暴跌</div></div>
+    <div class="m-card"><div class="v" style="color:#f85149">$215.33</div><div class="l">NVDA -1.57% 三连跌</div></div>
+    <div class="m-card"><div class="v" style="color:#58a6ff">4.544%</div><div class="l">10Y -2.4bp 三连降</div></div>
+    <div class="m-card"><div class="v" style="color:#3fb950">$135.76</div><div class="l">RKLB +8.2% 太空部队合同</div></div>
+    <div class="m-card"><div class="v" style="color:#f0883e">0%</div><div class="l">CME 2026降息概率归零</div></div>
+  </div>
+  <div class="box">
+    <div class="box-title">深度拆解：三条主线交织——沃什就任+伊朗「略有进展」+SOX突破12,000</div>
+    <strong style="color:#f0883e">Kevin Warsh就任第17任美联储主席</strong> — 白宫东厅宣誓，格林斯潘以来首位。就职演说强调「摆脱静态框架」「缩小资产负债表」。CME FedWatch：2026年降息概率归零，67%交易员定价12月加息。BTC从$78,000跌至$75,500——流动性萎缩预期压倒一切。但股市不跌反涨——盈利增长正在取代流动性成为市场新驱动力。<br><br>
+    <strong style="color:#58a6ff">伊朗「略有进展」但两大硬核未动</strong> — 卢比奥称「取得了一些进展」，九条停火草案达成框架（含海峡自由通航+7天内启动后续谈判）。但核问题和铀浓缩物去向被完全排除在草案外，伊朗最高领袖要求铀不得出境。卢比奥直接驳回海峡「收费」提议。WTI单日-5.3%至$96.60——市场在定价战争溢价消退，但还没定价海峡重开。<br><br>
+    <strong style="color:#3fb950">SOX +1.99%至12,202.54——历史上首次收于12,000上方</strong> — NVDA三连跌但30只成分股24只上涨。QCOM +12%引爆「移动芯片复兴」——AI从数据中心走向物理世界。芯片牛市进入「第二幕」：GPU→存储→设备→网络→边缘计算。五天前SOX在11,302恐慌，五天后在12,202创新高——AI的结构性力量碾压了所有宏观噪音。
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title orange">二、核心驱动：沃什「鹰派首日」+ 伊朗「略有进展」+ QCOM引爆移动芯片复兴</div>
+  <div class="box" style="border-color:rgba(240,136,62,0.2)">
+    <div class="box-title">沃什就任第一天——三个信号，一个方向：缩表优先，前瞻指引终结</div>
+    <strong>信号一：「摆脱静态框架」= dot plot和季度预测可能被废除。</strong>市场失去了导航工具——每一次FOMC从「大概率符合预期」变成「完全开放式的结果」。UBS警告：沃什风格将系统性提高市场波动率。<br>
+    <strong>信号二：缩表优先于降息。</strong>美联储$6万亿+资产负债表「臃肿」→需要大幅缩减。在缩表产生效果前不会降息。2026降息概率归零，加息概率67%。<br>
+    <strong>信号三：BTC $75,500做出最诚实的反应。</strong>沃什可能是最懂加密的Fed主席——但政策方向是减少系统流动性→对所有投机性资产都是逆风。全市场$4.85亿多头爆仓。市场用钱投票：流动性>监管友好。
+  </div>
+  <div class="box" style="border-color:rgba(88,166,255,0.2)">
+    <div class="box-title">伊朗和谈：「略有进展」但离和平还差两个「不」</div>
+    <strong>达成的部分</strong>：九条停火草案框架——全面停火、互不侵犯、海峡自由通航、7天内启动后续谈判。巴基斯坦陆军参谋长抵德黑兰第三轮斡旋，卡塔尔加入。<br>
+    <strong>卡住的部分</strong>：①伊朗最高领袖要求铀「不得出境」——美方不可接受 ②伊朗提出海峡通行「收费」并与阿曼分账——卢比奥直接驳回：「有一个国家接受，就会有五个海峡效仿。」<br>
+    <strong>WTI $102→$96.60单日-5.3%</strong>：市场在定价「战争溢价消退」，但海峡距离正常通航还差解决那两个「不」。
+  </div>
+  <div class="box" style="border-color:rgba(167,113,247,0.2)">
+    <div class="box-title">QCOM +12%——移动芯片复兴：不只是「涨了一天」</div>
+    <strong>五重催化剂同时点燃</strong>：①AI从数据中心走向物理世界——骁龙芯片进入AI手机/PC/眼镜/汽车/机器人 ②数据中心定制芯片——2026年底向超大规模客户交付 ③CEO随特朗普访华——中美科技贸易改善预期 ④汽车营收$13.3亿(+38% YoY) ⑤$200亿回购+$100亿CHIPS量子基金拨款。<br>
+    <strong>QCOM从「手机周期股」转型为「AI边缘计算平台股」——本周涨40%，一个月涨75%。这是一次估值框架的重定价。</strong>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title red">三、半导体 — NVDA三连跌但SOX突破12,000，QCOM+12%领涨，芯片牛市进入「第二幕」</div>
+  <table>
+  <tr><th>股票</th><th>代码</th><th style="text-align:right">收盘</th><th style="text-align:right">涨跌</th><th>驱动</th></tr>
+  <tr><td>高通</td><td class="tk">QCOM</td><td class="pr" style="text-align:right">$238.16</td><td class="up" style="text-align:right">+11.60%</td><td>移动芯片复兴+AI边缘+汽车+中国行</td></tr>
+  <tr><td>美光</td><td class="tk">MU</td><td class="pr" style="text-align:right">$751.00</td><td class="up" style="text-align:right">+5.55%</td><td>HBM需求+存储涨价+三星罢工缓解</td></tr>
+  <tr><td>AMD</td><td class="tk">AMD</td><td class="pr" style="text-align:right">$467.51</td><td class="up" style="text-align:right">+3.99%</td><td>MI500供应链+资金从NVDA持续轮动</td></tr>
+  <tr><td>博通</td><td class="tk">AVGO</td><td class="pr" style="text-align:right">$434.00</td><td class="up" style="text-align:right">+3.65%</td><td>AI网络芯片+VMware整合+QCOM联动</td></tr>
+  <tr><td>应用材料</td><td class="tk">AMAT</td><td class="pr" style="text-align:right">$426.00</td><td class="up" style="text-align:right">+3.40%</td><td>设备投资周期+Beat&Raise后修复</td></tr>
+  <tr><td>台积电</td><td class="tk">TSM</td><td class="pr" style="text-align:right">$417.00</td><td class="up" style="text-align:right">+2.08%</td><td>站上$400持续走强，AI代工独占</td></tr>
+  <tr><td>英特尔</td><td class="tk">INTC</td><td class="pr" style="text-align:right">$119.84</td><td class="up" style="text-align:right">+1.13%</td><td>CPU TAM扩张+PC换机周期</td></tr>
+  <tr><td>英伟达</td><td class="tk">NVDA</td><td class="pr" style="text-align:right">$215.33</td><td class="down" style="text-align:right">-1.57%</td><td>「利好出尽」第三日，$81.6B Beat已消化</td></tr>
+  </table>
+  <div class="tn">
+    <span class="tn-label">交易员笔记</span>
+    <strong>一周前SOX在11,302恐慌——那是全年最佳买入点。现在12,202了，8%周涨幅后追涨盈亏比从2:1恶化到1:1。</strong>NVDA三连跌但SOX创新高——AI轮动不是偶然是结构性趋势。核心信号：QCOM +12%标志芯片牛市进入「第二幕」——主角从GPU扩散到移动芯片+边缘计算+存储+设备。<br>
+    <strong>策略调整：核心AI仓位持有，10-15%从NVDA轮动至QCOM/AMD/MU。SOX回11,800-11,900→加仓MU($700-720)/AMAT($410-420)/TSM($405-410)。QCOM不追——$220-225回补。NVDA $210-215分批加仓，$200硬止损。</strong>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title blue">四、航天/国防 — 伊朗「略有进展」= 国防「战争溢价」消退，RKLB逆势+8%一枝独秀</div>
+  <table>
+  <tr><th>股票</th><th>代码</th><th style="text-align:right">收盘</th><th style="text-align:right">涨跌</th><th>核心逻辑</th></tr>
+  <tr><td>火箭实验室</td><td class="tk">RKLB</td><td class="pr" style="text-align:right">$135.76</td><td class="up" style="text-align:right">+8.20%</td><td>$90M太空部队合同+发射成功+IPO催化</td></tr>
+  <tr><td>波音</td><td class="tk">BA</td><td class="pr" style="text-align:right">$216.00</td><td class="down" style="text-align:right">-1.14%</td><td>被国防板块拖累，商用航空支撑</td></tr>
+  <tr><td>诺斯罗普</td><td class="tk">NOC</td><td class="pr" style="text-align:right">$545.00</td><td class="down" style="text-align:right">-1.27%</td><td>B-21+空间监视，短线被和谈压制</td></tr>
+  <tr><td>洛克希德</td><td class="tk">LMT</td><td class="pr" style="text-align:right">$515.00</td><td class="down" style="text-align:right">-1.49%</td><td>和平溢价消退，THAAD工厂长期支撑</td></tr>
+  <tr><td>雷神</td><td class="tk">RTX</td><td class="pr" style="text-align:right">$167.00</td><td class="down" style="text-align:right">-2.05%</td><td>导弹防御需求，但和谈每进一步就跌一步</td></tr>
+  </table>
+  <div class="tn">
+    <span class="tn-label">交易员笔记</span>
+    <strong>国防股当前的核心矛盾：FY2027预算$1.5万亿（+8% YoY）是真实增量——但伊朗和谈每「略有进展」一次，「战争溢价」就被削掉一层。</strong>WTI单日-5.3%说明市场在定价和平红利。国防股Beta就是油价——油价跌，国防跌。<br>
+    <strong>RKLB独立逻辑不受伊朗影响</strong>：$90M太空部队GEO卫星合同+第88次成功发射+SpaceX IPO（6/12）窗口期资金配置需求。$120-135合理区间分批建仓。传统国防等$500-510(LMT)重新入场。
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title green">五、铀矿/核能 — 伊朗「铀不出境」vs 和平预期 = 日内过山车，一个事件双向拉扯</div>
+  <table>
+  <tr><th>股票</th><th>代码</th><th style="text-align:right">收盘</th><th style="text-align:right">涨跌</th><th>动态</th></tr>
+  <tr><td>能源燃料</td><td class="tk">UUUU</td><td class="pr" style="text-align:right">$17.20</td><td class="down" style="text-align:right">-3.70%</td><td>油价暴跌拖累+和平预期，铀收入翻倍是底</td></tr>
+  <tr><td>铀能公司</td><td class="tk">UEC</td><td class="pr" style="text-align:right">$12.70</td><td class="down" style="text-align:right">-3.05%</td><td>区间下沿承压，接近长期资金介入位</td></tr>
+  <tr><td>卡梅科</td><td class="tk">CCJ</td><td class="pr" style="text-align:right">$102.80</td><td class="down" style="text-align:right">-2.40%</td><td>测试$100关口，Barclays目标$108不变</td></tr>
+  </table>
+  <div class="box">
+    <div class="box-title">一个事件，两个方向——铀矿当前最矛盾的特征</div>
+    <strong>上午因WTI暴跌5%被拖累大幅低开，下午因伊朗「铀不出境」消息收复约一半跌幅。</strong>这个V型走势揭示了铀矿正在被两个矛盾力量同时拉扯：向下→「和平红利」→大宗商品被减仓。向上→「铀不出境」→核燃料供应链焦虑→铀现货买家加速采购。<br>
+    <strong>重要的是：这两个力量的来源是同一个事件。</strong>同一个「略有进展」的和谈标题，对油价是利空（海峡可能重开），对铀矿却可能是利多（伊朗铀库存成为博弈筹码）。铀矿不会像石油那样单向跟随和谈标题。
+  </div>
+  <div class="tn">
+    <span class="tn-label">交易员笔记</span>
+    <strong>$12.50-13.00(UEC)、$16.50-17.20(UUUU)、$102-104(CCJ)继续是有效分批低吸窗口——要有耐心，大钱在2027-2030。</strong>UUUU Q1铀收入翻倍验证了基本面。如果伊朗和谈突破→铀矿先跟跌（流动性冲击）然后独立反弹（核电逻辑不被和平影响）→加仓机会不是卖出信号。仓位纪律不变：≤8-10%，单票3-5%。
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title purple">六、光子学/光通信 — AI光互联跟涨，等待CIEN 6月财报独立催化</div>
+  <table>
+  <tr><th>股票</th><th>代码</th><th style="text-align:right">收盘</th><th style="text-align:right">涨跌</th><th>驱动</th></tr>
+  <tr><td>Lightwave Logic</td><td class="tk">LWLG</td><td class="pr" style="text-align:right">$12.90</td><td class="up" style="text-align:right">+2.54%</td><td>聚合物调制器，超跌修复继续</td></tr>
+  <tr><td>POET科技</td><td class="tk">POET</td><td class="pr" style="text-align:right">$15.60</td><td class="up" style="text-align:right">+2.36%</td><td>CPO叙事持续修复，小盘弹性</td></tr>
+  <tr><td>应用光电</td><td class="tk">AAOI</td><td class="pr" style="text-align:right">$34.80</td><td class="up" style="text-align:right">+2.11%</td><td>800G放量+微软/Meta订单预期</td></tr>
+  <tr><td>Lumentum</td><td class="tk">LITE</td><td class="pr" style="text-align:right">$53.50</td><td class="up" style="text-align:right">+1.67%</td><td>AI光模块产能锁定至2028年</td></tr>
+  <tr><td>Coherent</td><td class="tk">COHR</td><td class="pr" style="text-align:right">$77.50</td><td class="up" style="text-align:right">+1.39%</td><td>全栈光子学龙头+NVDA战略投资</td></tr>
+  <tr><td>Ciena</td><td class="tk">CIEN</td><td class="pr" style="text-align:right">$55.50</td><td class="up" style="text-align:right">+1.28%</td><td>DCI+OCS双驱动，6月财报渐进催化</td></tr>
+  <tr><td>Viavi</td><td class="tk">VIAV</td><td class="pr" style="text-align:right">$49.20</td><td class="up" style="text-align:right">+0.99%</td><td>公开发行定价修复继续</td></tr>
+  </table>
+  <div class="box">
+    <div class="box-title">光子学 7 层产业链：L1材料 → L2激光器 → L3代工 → L4 DSP → <span style="color:#a371f7">L5 CPO</span> → L6传输 → L7测试</div>
+    <strong>跟涨AI而非领涨</strong> — 周五在SOX+2%背景下小涨1-3%，没有独立行情——周四已全线大幅反弹（LITE+8.5%、POET+9.2%），短线获利盘在消化。<br>
+    <strong>下一个核心催化剂：CIEN 6月财报。</strong>如果CIEN的DCI/OCS指引超预期，可能成为光子学板块的「QCOM时刻」——市场重新定价光互联赛道。<br>
+    <strong>CPO是2027-2028最大变量</strong> — POET光学插层、LWLG聚合物调制器是替代传统可插拔光模块的下一代方案。
+  </div>
+  <div class="tn">
+    <span class="tn-label">交易员笔记</span>
+    <strong>LITE $50-53/CIEN $53-55核心底仓，AAOI $33-35卫星仓位，POET/LWLG单票≤2%。等CIEN 6月财报——这是光子学从「跟涨AI」升级为「独立行情」的关键检验。</strong>如果CIEN验证光互联订单转化→板块配置可上调至12%。目前维持10%上限。不追高。
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title orange">七、后市展望</div>
+  <table>
+  <tr><th>日期</th><th>事件</th><th>重要性</th></tr>
+  <tr><td>5/25 周一</td><td>阵亡将士纪念日休市</td><td>—</td></tr>
+  <tr><td>5/26 周二</td><td>5月消费者信心指数 — 油价$4.55/加仑压垮消费？</td><td style="color:#f85149">★★★★</td></tr>
+  <tr><td>5/27 周三</td><td>FOMC 4月会议纪要 — 8-4分裂细节</td><td style="color:#f85149">★★★★</td></tr>
+  <tr><td>本周</td><td>伊朗和谈 — 巴基斯坦第三轮斡旋</td><td style="color:#f0883e">★★★★★</td></tr>
+  <tr><td>6/12</td><td>SpaceX IPO定价（$2万亿估值）</td><td style="color:#58a6ff">★★★★★</td></tr>
+  <tr><td>6/16-17</td><td>沃什首次主持FOMC会议 — 缩表框架+利率路径首次亮牌</td><td style="color:#f0883e">★★★★★</td></tr>
+  <tr><td>6月下旬</td><td>CIEN财报 — 光子学独立行情催化剂</td><td>★★★★</td></tr>
+  </table>
+  <div style="margin:12px 0;font-size:12px;line-height:1.8">
+    <strong>NVDA 四种路径（更新版）：</strong><br>
+    <span style="color:#d2991d">震荡筑底 40%</span> — $210-220区间+机构吸筹→$215-225，SOX 12,000-12,300<br>
+    <span style="color:#3fb950">沃什加息预期冲击 25%</span> — CME加息概率升至80%+→$200-210，SOX 11,600-11,800<br>
+    <span style="color:#f85149">QCOM效应扩散 20%</span> — 芯片全板块轮动加速→$225-240，SOX 12,500+<br>
+    伊朗和谈突破 15% — 全面和平协议→$240-260，SOX 13,000+
+  </div>
+  <div class="box" style="border-color:rgba(240,136,62,0.3);text-align:center;font-size:12px;color:#f0883e">
+    <strong>本周最重要的变化：油价从敌人变成潜在的朋友。</strong><br>
+    如果WTI在$90-100稳定（而非$105-120），能源通胀压力边际缓解→5月CPI降温→沃什「trimmed-mean PCE=2.3%」获得数据支持→9月降息窗口可能重开。<br>
+    10Y连续第三日回落（4.668%→4.544%），30Y从5.14%→5.10%——债市在定价这个逻辑。如果10Y跌破4.25%→成长股估值将获得一次可观的扩张。
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-title orange">八、全盘策略信号</div>
+  <table>
+  <tr><th style="width:80px">维度</th><th>判断</th></tr>
+  <tr><td>情绪</td><td>SOX突破12,000+道指连续第二日刷新纪录。周一恐慌到周五全面牛市扩散——180度翻转。沃什0%降息概率是清醒剂，但市场选择忽略，因为盈利增长正在取代流动性</td></tr>
+  <tr><td>核心驱动</td><td>沃什「鹰派首日」→缩表优先+前瞻指引终结→波动率结构性上升 | 伊朗「略有进展」但铀+海峡仍卡住 | QCOM+12%引爆「AI边缘计算」→芯片牛第二幕 | WTI -5.3%→通胀压力边际缓解</td></tr>
+  <tr><td>最大风险</td><td>沃什6月FOMC亮鹰派底牌→加息预期80%+ → 成长股杀估值 | 伊朗破裂→油价$110+ | NVDA跌破$210→AI信仰裂痕 | 消费者信心崩塌→衰退叙事回归</td></tr>
+  <tr><td>资金流向</td><td>从NVDA单票→QCOM/AMD/MU→芯片全板块扩散。小盘股（罗素+0.91%）连续跑赢标普（+0.37%）——沃什缩表+降息框架对小盘股利好</td></tr>
+  <tr><td>半导体</td><td>SOX 12,202创历史新高。NVDA $215三连跌=健康轮动不是恐慌。QCOM+12%是本周最大信号。SOX短期超买但中期继续看涨</td></tr>
+  <tr><td>航天国防</td><td>伊朗和谈每进一步国防跌一步。LMT $500-510/NOC $530-540合理入场。RKLB独立逻辑（SpaceX IPO）不受和谈影响</td></tr>
+  <tr><td>铀矿核能</td><td>油价暴跌拖累但伊朗「铀不出境」提供支撑。$12(UEC)/$16.50(UUUU)/$100(CCJ)是长期资金介入位。和谈突破→先跌后涨→加仓机会</td></tr>
+  <tr><td>光子学/光通信</td><td>跟涨AI，等CIEN 6月独立催化。核心底仓持有，不追高。配置≤10%</td></tr>
+  <tr><td style="color:#f0883e;font-weight:700">操作</td><td style="color:#f0883e"><strong>AI核心仓位持有，10-15%从NVDA轮动至QCOM/AMD/MU。SOX回11,800→加仓。保留15-20%现金等6月FOMC。LMT $500-510防御底仓。铀矿$12/16.50/100分批低吸。QCOM $220-225回补机会。不追SOX（8%周涨幅后超买）。最大不对称交易仍是伊朗和谈——一旦突破，油价$80+10Y 4.0%→全面牛市。</strong></td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  本报告为个人市场分析记录，不构成投资建议。股市有风险，投资需谨慎。<br>
+  数据来源：Yahoo Finance · 新浪财经 · 东方财富 · Bloomberg · MarketWatch · CNBC · Nasdaq · Investing.com
+</div>
+
+</body>
+</html>
